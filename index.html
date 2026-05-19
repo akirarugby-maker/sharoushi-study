@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社会保険労務士試験 学習アプリ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#f0f4f8;color:#1e293b;min-height:100vh}
+
+/* Header */
+.app-header{background:linear-gradient(135deg,#1e3a5f 0%,#2d5986 100%);color:#fff;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.app-header h1{font-size:1.4rem;font-weight:700;letter-spacing:.5px}
+.app-header p{font-size:.8rem;opacity:.8;margin-top:2px}
+
+/* Tab Nav */
+.tab-nav{display:flex;background:#fff;border-bottom:2px solid #e2e8f0;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,.08)}
+.tab-btn{flex:0 0 auto;padding:12px 16px;border:none;background:none;cursor:pointer;font-size:.82rem;font-weight:600;color:#64748b;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn.active{color:#1e3a5f;border-bottom-color:#1e3a5f;background:#f8fafc}
+.tab-btn:hover:not(.active){color:#1e3a5f;background:#f8fafc}
+
+/* Tab Content */
+.tab-content{display:none;padding:16px;max-width:900px;margin:0 auto}
+.tab-content.active{display:block}
+
+/* Subject Selector */
+.subject-selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.subject-btn{padding:7px 12px;border:2px solid #e2e8f0;border-radius:20px;background:#fff;cursor:pointer;font-size:.78rem;font-weight:600;transition:all .2s;color:#475569}
+.subject-btn.active{color:#fff;border-color:transparent}
+
+/* Cards */
+.card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:12px}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.card-icon{font-size:1.5rem}
+.card-title{font-size:1.1rem;font-weight:700;color:#1e293b}
+.card-subtitle{font-size:.8rem;color:#64748b;margin-top:2px}
+
+/* Roadmap */
+.roadmap-section{margin-bottom:20px}
+.roadmap-section h2{font-size:1.1rem;font-weight:700;color:#1e3a5f;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #bfdbfe}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:16px}
+.info-box{background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.info-box .num{font-size:1.6rem;font-weight:800;color:#1e3a5f}
+.info-box .label{font-size:.75rem;color:#64748b;margin-top:2px}
+.subject-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.subject-table th{background:#1e3a5f;color:#fff;padding:10px 12px;font-size:.82rem;text-align:left}
+.subject-table td{padding:9px 12px;font-size:.82rem;border-bottom:1px solid #f1f5f9}
+.subject-table tr:last-child td{border-bottom:none}
+.subject-table tr:nth-child(even) td{background:#f8fafc}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:700;color:#fff}
+
+/* Schedule */
+.schedule-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.schedule-month{background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.schedule-month h4{font-size:.9rem;font-weight:700;color:#1e3a5f;margin-bottom:8px}
+.schedule-month ul{list-style:none;padding:0}
+.schedule-month li{font-size:.8rem;color:#475569;padding:3px 0;padding-left:16px;position:relative}
+.schedule-month li::before{content:'→';position:absolute;left:0;color:#1e3a5f}
+
+/* Slides */
+.slide-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(0,0,0,.1);min-height:320px;position:relative}
+.slide-number{font-size:.75rem;color:#94a3b8;margin-bottom:8px}
+.slide-title{font-size:1.2rem;font-weight:800;color:#1e293b;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.slide-points{list-style:none;padding:0}
+.slide-points li{padding:8px 0;padding-left:20px;position:relative;font-size:.88rem;color:#334155;border-bottom:1px solid #f1f5f9;line-height:1.6}
+.slide-points li:last-child{border-bottom:none}
+.slide-points li::before{content:'▶';position:absolute;left:0;color:#1e3a5f;font-size:.7rem;top:10px}
+.slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:16px}
+.slide-nav button{padding:9px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;transition:all .2s}
+.btn-prev{background:#e2e8f0;color:#475569}
+.btn-prev:hover{background:#cbd5e1}
+.btn-next{background:#1e3a5f;color:#fff}
+.btn-next:hover{background:#2d5986}
+.slide-counter{font-size:.85rem;color:#64748b;font-weight:600}
+.slide-progress{height:4px;background:#e2e8f0;border-radius:2px;margin-top:12px}
+.slide-progress-bar{height:100%;border-radius:2px;background:#1e3a5f;transition:width .3s}
+
+/* Flashcards */
+.flashcard-area{perspective:1000px;margin-bottom:16px}
+.flashcard{width:100%;min-height:200px;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform .5s}
+.flashcard.flipped{transform:rotateY(180deg)}
+.flashcard-face{position:absolute;width:100%;min-height:200px;backface-visibility:hidden;border-radius:14px;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.flashcard-front{background:linear-gradient(135deg,#1e3a5f 0%,#2d5986 100%);color:#fff}
+.flashcard-back{background:#fff;color:#1e293b;transform:rotateY(180deg);border:2px solid #e2e8f0}
+.flashcard-label{font-size:.72rem;opacity:.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.flashcard-text{font-size:1rem;font-weight:600;line-height:1.6}
+.flashcard-hint{font-size:.75rem;opacity:.6;margin-top:12px}
+.fc-nav{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.fc-counter{font-size:.85rem;color:#64748b;font-weight:600}
+.fc-actions{display:flex;gap:8px}
+.fc-actions button{padding:8px 14px;border:none;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:600;transition:all .2s}
+.btn-flip{background:#1e3a5f;color:#fff}
+.btn-flip:hover{background:#2d5986}
+.btn-shuffle{background:#e2e8f0;color:#475569}
+.btn-shuffle:hover{background:#cbd5e1}
+.fc-progress{height:4px;background:#e2e8f0;border-radius:2px;margin-top:10px}
+.fc-progress-bar{height:100%;border-radius:2px;background:#059669;transition:width .3s}
+
+/* Quiz */
+.quiz-card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.quiz-qnum{font-size:.75rem;color:#94a3b8;margin-bottom:8px}
+.quiz-question{font-size:.95rem;font-weight:600;color:#1e293b;margin-bottom:18px;line-height:1.7}
+.quiz-options{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+.quiz-option{padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;font-size:.85rem;color:#334155;transition:all .2s;background:#fff}
+.quiz-option:hover:not(.disabled){background:#eff6ff;border-color:#bfdbfe}
+.quiz-option.correct{background:#d1fae5;border-color:#059669;color:#065f46}
+.quiz-option.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.quiz-option.disabled{cursor:default}
+.quiz-explanation{margin-top:14px;padding:12px 16px;background:#fffbeb;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;font-size:.83rem;color:#78350f;line-height:1.6;display:none}
+.quiz-explanation.show{display:block}
+.quiz-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.quiz-score{font-size:.85rem;color:#64748b;font-weight:600}
+.quiz-result{background:#fff;border-radius:14px;padding:28px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.1);display:none}
+.quiz-result.show{display:block}
+.result-score{font-size:3rem;font-weight:800;color:#1e3a5f}
+.result-label{font-size:.9rem;color:#64748b;margin-top:4px}
+.result-msg{font-size:1rem;font-weight:600;margin-top:12px;color:#1e293b}
+.btn-retry{margin-top:16px;padding:10px 24px;background:#1e3a5f;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:.9rem;font-weight:600}
+.btn-retry:hover{background:#2d5986}
+
+/* YouTube */
+.yt-section{margin-bottom:24px}
+.yt-section h3{font-size:1rem;font-weight:700;color:#1e3a5f;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.yt-topics{display:flex;flex-wrap:wrap;gap:8px}
+.yt-btn{padding:8px 14px;background:#fff;border:2px solid #e2e8f0;border-radius:20px;cursor:pointer;font-size:.8rem;font-weight:600;color:#334155;transition:all .2s;display:flex;align-items:center;gap:6px}
+.yt-btn:hover{background:#fef2f2;border-color:#ef4444;color:#dc2626}
+.yt-btn .yt-icon{color:#ef4444;font-size:1rem}
+
+/* Responsive */
+@media(max-width:600px){
+  .tab-btn{padding:10px 12px;font-size:.76rem}
+  .card{padding:14px}
+  .slide-card{padding:16px;min-height:280px}
+  .slide-title{font-size:1rem}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <h1>⚖️ 社会保険労務士試験 学習アプリ</h1>
+  <p>SR試験 完全対策 ─ 9科目・全分野収録</p>
+</div>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('roadmap')">🗺️ ロードマップ</button>
+  <button class="tab-btn" onclick="showTab('slides')">📊 スライド学習</button>
+  <button class="tab-btn" onclick="showTab('flashcard')">🃏 フラッシュカード</button>
+  <button class="tab-btn" onclick="showTab('quiz')">📝 問題演習</button>
+  <button class="tab-btn" onclick="showTab('youtube')">▶️ YouTube検索</button>
+</nav>
+
+<!-- ロードマップ -->
+<div id="tab-roadmap" class="tab-content active">
+  <div class="roadmap-section">
+    <h2>📋 試験概要</h2>
+    <div class="info-grid">
+      <div class="info-box"><div class="num">2</div><div class="label">試験科目区分<br>（選択式・択一式）</div></div>
+      <div class="info-box"><div class="num">110</div><div class="label">総問題数<br>（選40＋択70）</div></div>
+      <div class="info-box"><div class="num">110</div><div class="label">総点数<br>（満点）</div></div>
+      <div class="info-box"><div class="num">約6〜7%</div><div class="label">合格率</div></div>
+      <div class="info-box"><div class="num">800〜1000h</div><div class="label">標準学習時間</div></div>
+      <div class="info-box"><div class="num">8月</div><div class="label">試験実施月</div></div>
+    </div>
+    <div class="card">
+      <p style="font-size:.85rem;line-height:1.8;color:#475569">
+        社会保険労務士試験は<strong>選択式（8問40点）</strong>と<strong>択一式（70問70点）</strong>の2種類で構成されます。
+        合格基準は総得点の基準点に加え、<strong>各科目ごとの基準点</strong>（選択式：3点以上 / 択一式：4点以上）を
+        すべて満たす必要があります。科目別の足切りが設けられているため、苦手科目をなくす学習が重要です。
+      </p>
+    </div>
+  </div>
+
+  <div class="roadmap-section">
+    <h2>📊 科目別出題数</h2>
+    <table class="subject-table">
+      <thead>
+        <tr>
+          <th>科目</th>
+          <th>選択式</th>
+          <th>択一式</th>
+          <th>合計点</th>
+          <th>難易度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>⚖️ 労働基準法・安全衛生法</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#dc2626">高</span></td></tr>
+        <tr><td>🏥 労働者災害補償保険法</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#d97706">中</span></td></tr>
+        <tr><td>💼 雇用保険法</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#d97706">中</span></td></tr>
+        <tr><td>💰 労働保険徴収法</td><td>─</td><td>（労災・雇用に含む）</td><td>─</td><td><span class="badge" style="background:#059669">低</span></td></tr>
+        <tr><td>🩺 健康保険法</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#dc2626">高</span></td></tr>
+        <tr><td>🏦 厚生年金保険法</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#dc2626">高</span></td></tr>
+        <tr><td>📋 国民年金法</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#d97706">中</span></td></tr>
+        <tr><td>📚 労務管理一般常識</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#d97706">中</span></td></tr>
+        <tr><td>🏛️ 社会保険一般常識</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#d97706">中</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="roadmap-section">
+    <h2>📅 6ヶ月学習スケジュール</h2>
+    <div class="schedule-grid">
+      <div class="schedule-month">
+        <h4>1ヶ月目：労働法基礎</h4>
+        <ul>
+          <li>労働基準法の全体像を把握</li>
+          <li>労働安全衛生法の概要</li>
+          <li>労働時間・賃金の基礎</li>
+          <li>スライド学習20枚×2周</li>
+        </ul>
+      </div>
+      <div class="schedule-month">
+        <h4>2ヶ月目：労働保険</h4>
+        <ul>
+          <li>労働者災害補償保険法</li>
+          <li>雇用保険法の全体像</li>
+          <li>労働保険徴収法の基礎</li>
+          <li>フラッシュカードで用語暗記</li>
+        </ul>
+      </div>
+      <div class="schedule-month">
+        <h4>3ヶ月目：健康保険</h4>
+        <ul>
+          <li>健康保険法の給付体系</li>
+          <li>標準報酬月額・保険料</li>
+          <li>高額療養費制度の詳細</li>
+          <li>問題演習を週3回実施</li>
+        </ul>
+      </div>
+      <div class="schedule-month">
+        <h4>4ヶ月目：年金保険</h4>
+        <ul>
+          <li>厚生年金保険法の全体像</li>
+          <li>国民年金法の体系理解</li>
+          <li>老齢・障害・遺族給付比較</li>
+          <li>計算問題の練習</li>
+        </ul>
+      </div>
+      <div class="schedule-month">
+        <h4>5ヶ月目：一般常識</h4>
+        <ul>
+          <li>労務管理一般常識の法律</li>
+          <li>社会保険一般常識の制度</li>
+          <li>最新の法改正事項確認</li>
+          <li>白書・統計の要点整理</li>
+        </ul>
+      </div>
+      <div class="schedule-month">
+        <h4>6ヶ月目：総仕上げ</h4>
+        <ul>
+          <li>過去問10年分の集中演習</li>
+          <li>苦手科目の集中補強</li>
+          <li>模擬試験で時間感覚をつかむ</li>
+          <li>選択式の穴埋め特訓</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- スライド学習 -->
+<div id="tab-slides" class="tab-content">
+  <div class="subject-selector" id="slide-subject-selector"></div>
+  <div class="slide-card" id="slide-display">
+    <div class="slide-number" id="slide-num"></div>
+    <div class="slide-title" id="slide-title"></div>
+    <ul class="slide-points" id="slide-points"></ul>
+    <div class="slide-progress"><div class="slide-progress-bar" id="slide-progress-bar"></div></div>
+  </div>
+  <div class="slide-nav">
+    <button class="btn-prev" onclick="changeSlide(-1)">← 前へ</button>
+    <span class="slide-counter" id="slide-counter"></span>
+    <button class="btn-next" onclick="changeSlide(1)">次へ →</button>
+  </div>
+</div>
+
+<!-- フラッシュカード -->
+<div id="tab-flashcard" class="tab-content">
+  <div class="subject-selector" id="fc-subject-selector"></div>
+  <div class="flashcard-area">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="flashcard-face flashcard-front">
+        <div class="flashcard-label">問題</div>
+        <div class="flashcard-text" id="fc-front"></div>
+        <div class="flashcard-hint">タップして答えを見る</div>
+      </div>
+      <div class="flashcard-face flashcard-back">
+        <div class="flashcard-label">答え</div>
+        <div class="flashcard-text" id="fc-back"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-progress"><div class="fc-progress-bar" id="fc-progress-bar"></div></div>
+  <div class="fc-nav">
+    <button class="btn-prev" onclick="changeCard(-1)">← 前へ</button>
+    <span class="fc-counter" id="fc-counter"></span>
+    <div class="fc-actions">
+      <button class="btn-shuffle" onclick="shuffleCards()">🔀 シャッフル</button>
+      <button class="btn-flip" onclick="flipCard()">🔄 めくる</button>
+    </div>
+    <button class="btn-next" onclick="changeCard(1)">次へ →</button>
+  </div>
+</div>
+
+<!-- 問題演習 -->
+<div id="tab-quiz" class="tab-content">
+  <div class="subject-selector" id="quiz-subject-selector"></div>
+  <div id="quiz-area">
+    <div class="quiz-card" id="quiz-card">
+      <div class="quiz-qnum" id="quiz-qnum"></div>
+      <div class="quiz-question" id="quiz-question"></div>
+      <ul class="quiz-options" id="quiz-options"></ul>
+      <div class="quiz-explanation" id="quiz-explanation"></div>
+      <div class="quiz-nav">
+        <span class="quiz-score" id="quiz-score"></span>
+        <button class="btn-next" id="quiz-next-btn" onclick="nextQuestion()" style="display:none">次の問題 →</button>
+      </div>
+    </div>
+    <div class="quiz-result" id="quiz-result">
+      <div class="result-score" id="result-score"></div>
+      <div class="result-label">点（20問中）</div>
+      <div class="result-msg" id="result-msg"></div>
+      <button class="btn-retry" onclick="restartQuiz()">もう一度挑戦</button>
+    </div>
+  </div>
+</div>
+
+<!-- YouTube検索 -->
+<div id="tab-youtube" class="tab-content">
+  <div class="card" style="margin-bottom:16px">
+    <p style="font-size:.85rem;color:#475569;line-height:1.7">
+      各科目の重要トピックボタンをクリックすると、YouTubeでの学習動画検索が開きます。
+      SR試験の解説動画、予備校講義、過去問解説など様々なコンテンツを活用しましょう。
+    </p>
+  </div>
+  <div id="yt-content"></div>
+</div>
+
+<script>
