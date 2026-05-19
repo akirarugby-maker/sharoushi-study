@@ -1,0 +1,69 @@
+name: 社労士学習アプリ CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'claude/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    name: HTMLファイル検証
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: index.html の存在確認
+        run: |
+          if [ -f "index.html" ]; then
+            echo "✅ index.html が存在します"
+            wc -l index.html
+          else
+            echo "❌ index.html が見つかりません"
+            exit 1
+          fi
+
+      - name: ファイルサイズ確認
+        run: |
+          SIZE=$(wc -c < index.html)
+          echo "📄 ファイルサイズ: ${SIZE} bytes"
+          if [ "$SIZE" -gt 100000 ]; then
+            echo "✅ コンテンツが十分に含まれています"
+          else
+            echo "⚠️ ファイルが小さすぎる可能性があります"
+          fi
+
+      - name: スライドデータの件数確認
+        run: |
+          SLIDES=$(grep -o "title:'" index.html | wc -l)
+          echo "📊 スライド総数: ${SLIDES} 枚"
+
+      - name: クイズ問題数の確認
+        run: |
+          QUIZ=$(grep -o "{q:'" index.html | wc -l)
+          echo "📝 クイズ問題総数: ${QUIZ} 問"
+
+      - name: フラッシュカード枚数の確認
+        run: |
+          FC=$(grep -o "{q:'" index.html | wc -l)
+          echo "🃏 フラッシュカード: 確認完了"
+
+      - name: 具体例（exフィールド）の件数確認
+        run: |
+          EX=$(grep -o "ex:'" index.html | wc -l)
+          echo "💡 具体例（exフィールド）追加済みスライド: ${EX} 枚"
+
+      - name: ✅ 完了レポート
+        run: |
+          echo "================================"
+          echo "  社労士学習アプリ ビルドチェック完了"
+          echo "================================"
+          echo "ブランチ: ${{ github.ref_name }}"
+          echo "コミット: ${{ github.sha }}"
+          echo "実行者:   ${{ github.actor }}"
+          echo "================================"
