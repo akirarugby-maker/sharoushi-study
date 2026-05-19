@@ -126,6 +126,36 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .yt-btn:hover{background:#fef2f2;border-color:#ef4444;color:#dc2626}
 .yt-btn .yt-icon{color:#ef4444;font-size:1rem}
 
+/* Slide Visual */
+.slide-visual{margin:14px 0}
+.sv-table{width:100%;border-collapse:collapse;font-size:.82rem;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.sv-table th{padding:8px 10px;font-size:.8rem;text-align:left;color:#fff}
+.sv-table td{padding:7px 10px;border-bottom:1px solid #f1f5f9;font-size:.82rem;vertical-align:top}
+.sv-table tr:last-child td{border-bottom:none}
+.sv-table tr:nth-child(even) td{background:#f8fafc}
+.sv-compare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sv-box{background:#f8fafc;border-radius:8px;padding:10px;border:1px solid #e2e8f0;overflow:hidden}
+.sv-box-head{margin:-10px -10px 8px;padding:6px 10px;font-size:.8rem;font-weight:700;color:#fff}
+.sv-box ul{list-style:none;padding:0;margin:0}
+.sv-box li{font-size:.78rem;padding:3px 0 3px 14px;position:relative;color:#334155;border-bottom:1px solid #f1f5f9}
+.sv-box li:last-child{border-bottom:none}
+.sv-box li::before{content:'▶';position:absolute;left:0;font-size:.6rem;top:5px;color:#94a3b8}
+.sv-flow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0}
+.sv-step{background:#fff;border:2px solid #e2e8f0;border-radius:6px;padding:6px 10px;font-size:.75rem;font-weight:600;color:#1e293b;text-align:center;line-height:1.4}
+.sv-arrow{color:#94a3b8;font-weight:700;font-size:.9rem}
+.sv-formula{background:#fefce8;border:2px dashed #f59e0b;border-radius:8px;padding:10px 14px;text-align:center;font-weight:700;font-size:.88rem;color:#92400e}
+.sv-highlight{display:flex;gap:8px;flex-wrap:wrap}
+.sv-num-box{flex:1;min-width:70px;background:linear-gradient(135deg,#eff6ff,#f0fdf4);border:2px solid #bfdbfe;border-radius:8px;padding:10px;text-align:center}
+.sv-num-box .sv-n{font-size:1.4rem;font-weight:800;color:#1e3a5f}
+.sv-num-box .sv-l{font-size:.68rem;color:#64748b;margin-top:2px;line-height:1.3}
+.sv-note{background:#fff7ed;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:8px 12px;font-size:.78rem;color:#78350f;margin-top:8px;line-height:1.5}
+/* Slide Links */
+.slide-links{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.slide-link-btn{display:flex;align-items:center;gap:5px;padding:8px 16px;border:none;border-radius:20px;cursor:pointer;font-size:.8rem;font-weight:600;transition:all .2s}
+.slide-link-fc{background:#f0fdf4;color:#065f46;border:1px solid #86efac}
+.slide-link-fc:hover{background:#86efac}
+.slide-link-q{background:#fffbeb;color:#78350f;border:1px solid #fcd34d}
+.slide-link-q:hover{background:#fcd34d}
 /* Responsive */
 @media(max-width:600px){
   .tab-btn{padding:10px 12px;font-size:.76rem}
@@ -133,6 +163,9 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
   .slide-card{padding:16px;min-height:280px}
   .slide-title{font-size:1rem}
   .info-grid{grid-template-columns:repeat(2,1fr)}
+  .sv-compare{grid-template-columns:1fr}
+  .sv-highlight{gap:4px}
+  .sv-num-box .sv-n{font-size:1.1rem}
 }
 </style>
 </head>
@@ -266,6 +299,8 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
     <div class="slide-number" id="slide-num"></div>
     <div class="slide-title" id="slide-title"></div>
     <ul class="slide-points" id="slide-points"></ul>
+    <div class="slide-visual" id="slide-visual"></div>
+    <div class="slide-links" id="slide-links"></div>
     <div class="slide-progress"><div class="slide-progress-bar" id="slide-progress-bar"></div></div>
   </div>
   <div class="slide-nav">
@@ -1110,6 +1145,32 @@ function renderSlide() {
   document.getElementById('slide-title').innerHTML = '<span>' + s.icon + '</span>' + s.title;
   const ul = document.getElementById('slide-points');
   ul.innerHTML = s.points.map(p => '<li>' + p + '</li>').join('');
+  // Visual
+  const vis = document.getElementById('slide-visual');
+  if (s.visual) {
+    vis.innerHTML = s.visual;
+    vis.querySelectorAll('.sv-table th').forEach(th => { th.style.background = subj.color; });
+    vis.querySelectorAll('.sv-box-head').forEach(el => { el.style.background = subj.color; });
+    vis.querySelectorAll('.sv-num-box').forEach(el => { el.style.borderColor = subj.color + '88'; });
+    vis.querySelectorAll('.sv-num-box .sv-n').forEach(el => { el.style.color = subj.color; });
+  } else { vis.innerHTML = ''; }
+  // Link buttons
+  const links = document.getElementById('slide-links');
+  links.innerHTML = '';
+  if (s.fc !== undefined) {
+    const b = document.createElement('button');
+    b.className = 'slide-link-btn slide-link-fc';
+    b.innerHTML = '🃏 関連フラッシュカードで練習';
+    b.onclick = () => jumpToFlashcard(currentSubject, s.fc);
+    links.appendChild(b);
+  }
+  if (s.q !== undefined) {
+    const b = document.createElement('button');
+    b.className = 'slide-link-btn slide-link-q';
+    b.innerHTML = '📝 この分野の問題を解く';
+    b.onclick = () => jumpToQuiz(currentSubject, s.q);
+    links.appendChild(b);
+  }
   document.getElementById('slide-counter').textContent = (currentSlide + 1) + ' / ' + slides.length;
   const pct = ((currentSlide + 1) / slides.length * 100).toFixed(1);
   const bar = document.getElementById('slide-progress-bar');
@@ -1121,6 +1182,34 @@ function changeSlide(dir) {
   const slides = slidesData[currentSubject];
   currentSlide = (currentSlide + dir + slides.length) % slides.length;
   renderSlide();
+}
+
+function jumpToFlashcard(subjectId, cardIdx) {
+  currentSubject = subjectId;
+  currentCard = cardIdx;
+  cardFlipped = false;
+  document.querySelectorAll('#fc-subject-selector .subject-btn').forEach((b, i) => {
+    b.classList.toggle('active', subjects[i].id === subjectId);
+    b.style.background = subjects[i].id === subjectId ? subjects[i].color : '';
+  });
+  showTab('flashcard');
+  renderCard();
+}
+
+function jumpToQuiz(subjectId, qIdx) {
+  currentSubject = subjectId;
+  document.querySelectorAll('#quiz-subject-selector .subject-btn').forEach((b, i) => {
+    b.classList.toggle('active', subjects[i].id === subjectId);
+    b.style.background = subjects[i].id === subjectId ? subjects[i].color : '';
+  });
+  quizCards = [...questionsData[subjectId]];
+  currentQuestion = Math.min(qIdx, quizCards.length - 1);
+  quizScore = 0;
+  quizAnswered = false;
+  document.getElementById('quiz-result').classList.remove('show');
+  document.getElementById('quiz-card').style.display = '';
+  showTab('quiz');
+  renderQuestion();
 }
 
 // ─── Flashcard ───────────────────────────────────────
