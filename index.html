@@ -166,6 +166,10 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .sv-note{background:#fff7ed;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:8px 12px;font-size:.78rem;color:#78350f;margin-top:8px;line-height:1.5}
 /* Slide Links */
 .slide-links{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.return-bar{display:flex;align-items:center;gap:10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:8px 14px;margin-bottom:12px}
+.return-bar-btn{display:flex;align-items:center;gap:5px;padding:6px 14px;border:1px solid #93c5fd;border-radius:20px;background:#fff;color:#1d4ed8;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s}
+.return-bar-btn:hover{background:#dbeafe}
+.return-bar-label{font-size:.78rem;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .slide-link-btn{display:flex;align-items:center;gap:5px;padding:8px 16px;border:none;border-radius:20px;cursor:pointer;font-size:.8rem;font-weight:600;transition:all .2s}
 .slide-link-fc{background:#f0fdf4;color:#065f46;border:1px solid #86efac}
 .slide-link-fc:hover{background:#86efac}
@@ -335,6 +339,10 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 
 <!-- フラッシュカード -->
 <div id="tab-flashcard" class="tab-content">
+  <div id="fc-return-bar" class="return-bar" style="display:none">
+    <button class="return-bar-btn" onclick="returnToSlide()">← スライドに戻る</button>
+    <span class="return-bar-label" id="fc-return-label"></span>
+  </div>
   <div class="subject-selector" id="fc-subject-selector"></div>
   <div class="flashcard-area">
     <div class="flashcard" id="flashcard" onclick="flipCard()">
@@ -363,6 +371,10 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 
 <!-- 問題演習 -->
 <div id="tab-quiz" class="tab-content">
+  <div id="quiz-return-bar" class="return-bar" style="display:none">
+    <button class="return-bar-btn" onclick="returnToSlide()">← スライドに戻る</button>
+    <span class="return-bar-label" id="quiz-return-label"></span>
+  </div>
   <div class="subject-selector" id="quiz-subject-selector"></div>
   <div id="quiz-area">
     <div class="quiz-card" id="quiz-card">
@@ -1122,6 +1134,7 @@ const youtubeTopics = {
 let currentSubject = 'roki';
 let currentSlide = 0;
 let currentCard = 0;
+let slideReturnPos = null;
 let cardFlipped = false;
 let currentQuestion = 0;
 let quizScore = 0;
@@ -1361,6 +1374,12 @@ function changeSlide(dir) {
 }
 
 function jumpToFlashcard(subjectId, cardIdx) {
+  slideReturnPos = {subjectId: currentSubject, slideIdx: currentSlide};
+  const slide = slidesData[currentSubject][currentSlide];
+  const subj = subjects.find(s => s.id === currentSubject);
+  const label = (subj ? subj.name : '') + ' スライド' + (currentSlide + 1) + '「' + (slide ? slide.title : '') + '」';
+  document.getElementById('fc-return-label').textContent = label;
+  document.getElementById('fc-return-bar').style.display = '';
   currentSubject = subjectId;
   currentCard = cardIdx;
   cardFlipped = false;
@@ -1373,6 +1392,12 @@ function jumpToFlashcard(subjectId, cardIdx) {
 }
 
 function jumpToQuiz(subjectId, qIdx) {
+  slideReturnPos = {subjectId: currentSubject, slideIdx: currentSlide};
+  const slide = slidesData[currentSubject][currentSlide];
+  const subj = subjects.find(s => s.id === currentSubject);
+  const label = (subj ? subj.name : '') + ' スライド' + (currentSlide + 1) + '「' + (slide ? slide.title : '') + '」';
+  document.getElementById('quiz-return-label').textContent = label;
+  document.getElementById('quiz-return-bar').style.display = '';
   currentSubject = subjectId;
   document.querySelectorAll('#quiz-subject-selector .subject-btn').forEach((b, i) => {
     b.classList.toggle('active', subjects[i].id === subjectId);
@@ -1386,6 +1411,22 @@ function jumpToQuiz(subjectId, qIdx) {
   document.getElementById('quiz-card').style.display = '';
   showTab('quiz');
   renderQuestion();
+}
+
+function returnToSlide() {
+  if (!slideReturnPos) return;
+  const {subjectId, slideIdx} = slideReturnPos;
+  slideReturnPos = null;
+  document.getElementById('fc-return-bar').style.display = 'none';
+  document.getElementById('quiz-return-bar').style.display = 'none';
+  currentSubject = subjectId;
+  currentSlide = slideIdx;
+  document.querySelectorAll('#slide-subject-selector .subject-btn').forEach((b, i) => {
+    b.classList.toggle('active', subjects[i].id === subjectId);
+    b.style.background = subjects[i].id === subjectId ? subjects[i].color : '';
+  });
+  showTab('slides');
+  renderSlide();
 }
 
 // ─── Flashcard ───────────────────────────────────────
