@@ -196,6 +196,10 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .sc-subject-pct{font-size:.82rem;font-weight:700;color:#64748b}
 .sc-subject-bar{height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;margin-bottom:14px}
 .sc-subject-fill{height:100%;border-radius:3px;transition:width .4s}
+.sc-reset-btn{font-size:.7rem;padding:2px 9px;border:1px solid #fca5a5;border-radius:10px;background:#fff;color:#dc2626;cursor:pointer;white-space:nowrap;transition:background .15s}
+.sc-reset-btn:hover{background:#fee2e2}
+.sc-reset-all-btn{font-size:.78rem;padding:5px 14px;border:1px solid #fca5a5;border-radius:10px;background:#fff;color:#dc2626;cursor:pointer;margin-top:10px;transition:background .15s}
+.sc-reset-all-btn:hover{background:#fee2e2}
 .sc-theme{padding:10px 0;border-bottom:1px solid #f1f5f9}
 .sc-theme:last-child{border-bottom:none}
 .sc-theme-name{font-size:.83rem;font-weight:600;color:#334155;margin-bottom:8px}
@@ -250,6 +254,9 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
       <div class="sc-overall-bar"><div class="sc-overall-fill" id="sc-overall-fill" style="width:0%"></div></div>
       <div class="sc-overall-pct" id="sc-overall-pct">0%</div>
     </div>
+  </div>
+  <div style="text-align:right;margin-bottom:12px">
+    <button class="sc-reset-all-btn" onclick="resetAllProgress()">🗑️ 全体をリセット</button>
   </div>
   <div id="sc-subjects"></div>
 </div>
@@ -1195,7 +1202,7 @@ function renderScheduler() {
     const el = document.createElement('div');
     el.className = 'sc-subject';
     el.id = 'sc-subj-' + subj.id;
-    el.innerHTML = `<div class="sc-subject-header" style="border-left:4px solid ${subj.color};padding-left:10px"><span class="sc-subject-name">${subj.name}</span><span class="sc-subject-pct" id="pct-${subj.id}">${pct}%</span></div><div class="sc-subject-bar"><div class="sc-subject-fill" id="fill-${subj.id}" style="background:${subj.color};width:${pct}%"></div></div><div class="sc-themes">${themesHTML}</div>`;
+    el.innerHTML = `<div class="sc-subject-header" style="border-left:4px solid ${subj.color};padding-left:10px"><span class="sc-subject-name">${subj.name}</span><span style="display:flex;align-items:center;gap:8px"><span class="sc-subject-pct" id="pct-${subj.id}">${pct}%</span><button class="sc-reset-btn" onclick="resetSubjectProgress('${subj.id}')">リセット</button></span></div><div class="sc-subject-bar"><div class="sc-subject-fill" id="fill-${subj.id}" style="background:${subj.color};width:${pct}%"></div></div><div class="sc-themes">${themesHTML}</div>`;
     container.appendChild(el);
   });
   updateOverallProgress(progress);
@@ -1609,6 +1616,29 @@ renderSlide();
 renderCard();
 initQuiz('roki');
 renderYoutube();
+
+// ─── Reset helpers ────────────────────────────────────
+function resetAllProgress() {
+  if (!confirm('全科目の進捗をリセットします。この操作は元に戻せません。よろしいですか？')) return;
+  saveScProgress({});
+  renderScheduler();
+  if (document.getElementById('tab-roadmap').classList.contains('active')) renderRoadmapSchedule();
+}
+
+function resetSubjectProgress(subjId) {
+  const subj = SC_SUBJECTS.find(s => s.id === subjId);
+  if (!subj) return;
+  if (!confirm(subj.name + ' の進捗をリセットします。よろしいですか？')) return;
+  const progress = loadScProgress();
+  subj.themes.forEach((_, ti) => {
+    SC_ACTS.forEach(act => {
+      for (let r = 0; r < SC_ROUNDS; r++) delete progress[subjId + '_' + ti + '_' + act.key + '_' + r];
+    });
+  });
+  saveScProgress(progress);
+  renderScheduler();
+  if (document.getElementById('tab-roadmap').classList.contains('active')) renderRoadmapSchedule();
+}
 
 // ─── Auto-check helpers ───────────────────────────────
 function autoCheckTheme(subjId, themeIdx, actKey, progress) {
