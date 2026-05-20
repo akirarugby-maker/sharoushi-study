@@ -50,12 +50,27 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:700;color:#fff}
 
 /* Schedule */
-.schedule-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
-.schedule-month{background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.schedule-month h4{font-size:.9rem;font-weight:700;color:#1e3a5f;margin-bottom:8px}
-.schedule-month ul{list-style:none;padding:0}
-.schedule-month li{font-size:.8rem;color:#475569;padding:3px 0;padding-left:16px;position:relative}
-.schedule-month li::before{content:'→';position:absolute;left:0;color:#1e3a5f}
+.rm-phase-header{display:flex;align-items:center;gap:10px;margin:18px 0 8px;flex-wrap:wrap}
+.rm-phase-label{padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.rm-phase-name{font-size:.95rem;font-weight:700;color:#1e3a5f}
+.rm-phase-period{font-size:.78rem;color:#64748b;margin-left:auto}
+.rm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.rm-month{background:#fff;border-radius:10px;padding:13px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid #e2e8f0;position:relative}
+.rm-month.status-current{box-shadow:0 0 0 2px #2563eb,0 4px 12px rgba(37,99,235,.15)}
+.rm-month.status-done{opacity:.85}
+.rm-month.status-future{opacity:.7}
+.rm-month-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px}
+.rm-month-name{font-size:.78rem;font-weight:700;color:#1e3a5f}
+.rm-month-status{font-size:.7rem;font-weight:600;padding:2px 7px;border-radius:10px;white-space:nowrap}
+.status-done-badge{background:#dcfce7;color:#166534}
+.status-current-badge{background:#dbeafe;color:#1d4ed8}
+.status-behind-badge{background:#fef9c3;color:#854d0e}
+.status-missing-badge{background:#fee2e2;color:#991b1b}
+.status-future-badge{background:#f1f5f9;color:#64748b}
+.rm-month-title{font-size:.82rem;font-weight:600;color:#334155;margin-bottom:7px}
+.rm-month-bar-wrap{background:#f1f5f9;border-radius:4px;height:5px;margin-bottom:6px;overflow:hidden}
+.rm-month-bar{height:5px;border-radius:4px;transition:width .4s}
+.rm-month-goal{font-size:.72rem;color:#64748b}
 
 /* Slides */
 .slide-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(0,0,0,.1);min-height:320px;position:relative}
@@ -285,63 +300,8 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
   </div>
 
   <div class="roadmap-section">
-    <h2>📅 6ヶ月学習スケジュール</h2>
-    <div class="schedule-grid">
-      <div class="schedule-month">
-        <h4>1ヶ月目：労働法基礎</h4>
-        <ul>
-          <li>労働基準法の全体像を把握</li>
-          <li>労働安全衛生法の概要</li>
-          <li>労働時間・賃金の基礎</li>
-          <li>スライド学習20枚×2周</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>2ヶ月目：労働保険</h4>
-        <ul>
-          <li>労働者災害補償保険法</li>
-          <li>雇用保険法の全体像</li>
-          <li>労働保険徴収法の基礎</li>
-          <li>フラッシュカードで用語暗記</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>3ヶ月目：健康保険</h4>
-        <ul>
-          <li>健康保険法の給付体系</li>
-          <li>標準報酬月額・保険料</li>
-          <li>高額療養費制度の詳細</li>
-          <li>問題演習を週3回実施</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>4ヶ月目：年金保険</h4>
-        <ul>
-          <li>厚生年金保険法の全体像</li>
-          <li>国民年金法の体系理解</li>
-          <li>老齢・障害・遺族給付比較</li>
-          <li>計算問題の練習</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>5ヶ月目：一般常識</h4>
-        <ul>
-          <li>労務管理一般常識の法律</li>
-          <li>社会保険一般常識の制度</li>
-          <li>最新の法改正事項確認</li>
-          <li>白書・統計の要点整理</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>6ヶ月目：総仕上げ</h4>
-        <ul>
-          <li>過去問10年分の集中演習</li>
-          <li>苦手科目の集中補強</li>
-          <li>模擬試験で時間感覚をつかむ</li>
-          <li>選択式の穴埋め特訓</li>
-        </ul>
-      </div>
-    </div>
+    <h2>📅 15ヶ月学習スケジュール（2026年6月〜2027年8月）</h2>
+    <div id="rm-schedule" class="rm-grid"></div>
   </div>
 </div>
 
@@ -1167,7 +1127,8 @@ function showTab(name) {
   const idx = ['scheduler','roadmap','slides','flashcard','quiz','youtube'].indexOf(name);
   document.querySelectorAll('.tab-btn')[idx].classList.add('active');
   if (name === 'youtube') renderYoutube();
-  if (name === 'scheduler') updateOverallProgress(loadScProgress());
+  if (name === 'scheduler') { updateOverallProgress(loadScProgress()); renderScheduler(); }
+  if (name === 'roadmap') renderRoadmapSchedule();
 }
 
 // ─── Scheduler ───────────────────────────────────────
@@ -1258,6 +1219,7 @@ function onScCheck(key, subjId, el) {
   if (lbl) lbl.classList.toggle('done', el.checked);
   updateSubjectProgress(subjId, progress);
   updateOverallProgress(progress);
+  if (document.getElementById('tab-roadmap').classList.contains('active')) renderRoadmapSchedule();
 }
 
 function updateSubjectProgress(subjId, progress) {
@@ -1544,6 +1506,79 @@ function renderYoutube() {
     section.appendChild(div);
     container.appendChild(section);
   });
+}
+
+// ─── Roadmap Schedule ─────────────────────────────────
+const SCHEDULE_PHASES = [
+  {id:1,label:'フェーズ1',name:'基礎インプット',color:'#2563eb',period:'2026年6月〜11月'},
+  {id:2,label:'フェーズ2',name:'復習・定着',   color:'#059669',period:'2026年12月〜2027年3月'},
+  {id:3,label:'フェーズ3',name:'実力養成',     color:'#d97706',period:'2027年4月〜5月'},
+  {id:4,label:'フェーズ4',name:'直前仕上げ',   color:'#dc2626',period:'2027年6月〜8月'},
+];
+const SCHEDULE_MONTHS = [
+  {y:2026,m:6, phase:1,emoji:'⚖️', title:'労働基準法・安全衛生法',         targets:[{id:'roki',  round:0,acts:['slide','card','quiz']}],goal:'roki 全テーマ1回目完了'},
+  {y:2026,m:7, phase:1,emoji:'🏥', title:'労働者災害補償保険法',           targets:[{id:'rosai', round:0,acts:['slide','card','quiz']}],goal:'rosai 全テーマ1回目完了'},
+  {y:2026,m:8, phase:1,emoji:'💼', title:'雇用保険法・労働保険徴収法',      targets:[{id:'koyo',round:0,acts:['slide','card','quiz']},{id:'choshu',round:0,acts:['slide','card','quiz']}],goal:'koyo・choshu 1回目完了'},
+  {y:2026,m:9, phase:1,emoji:'🩺', title:'健康保険法',                     targets:[{id:'kenpo', round:0,acts:['slide','card','quiz']}],goal:'kenpo 全テーマ1回目完了'},
+  {y:2026,m:10,phase:1,emoji:'🏦', title:'厚生年金保険法',                 targets:[{id:'kosei', round:0,acts:['slide','card','quiz']}],goal:'kosei 全テーマ1回目完了'},
+  {y:2026,m:11,phase:1,emoji:'📋', title:'国民年金法・一般常識',           targets:[{id:'kokunen',round:0,acts:['slide','card','quiz']},{id:'romu',round:0,acts:['slide','card','quiz']},{id:'shakai',round:0,acts:['slide','card','quiz']}],goal:'kokunen・romu・shakai 1回目完了'},
+  {y:2026,m:12,phase:2,emoji:'🔄', title:'労働法 2周目（roki・rosai）',    targets:[{id:'roki',round:1,acts:['slide','card','quiz']},{id:'rosai',round:1,acts:['slide','card','quiz']}],goal:'roki・rosai 2回目完了'},
+  {y:2027,m:1, phase:2,emoji:'🔄', title:'雇用・健保 2周目',              targets:[{id:'koyo',round:1,acts:['slide','card','quiz']},{id:'choshu',round:1,acts:['slide','card','quiz']},{id:'kenpo',round:1,acts:['slide','card','quiz']}],goal:'koyo・choshu・kenpo 2回目完了'},
+  {y:2027,m:2, phase:2,emoji:'🔄', title:'年金 2周目',                    targets:[{id:'kosei',round:1,acts:['slide','card','quiz']},{id:'kokunen',round:1,acts:['slide','card','quiz']}],goal:'kosei・kokunen 2回目完了'},
+  {y:2027,m:3, phase:2,emoji:'🔄', title:'一般常識 2周目・選択式強化',     targets:[{id:'romu',round:1,acts:['slide','card','quiz']},{id:'shakai',round:1,acts:['slide','card','quiz']}],goal:'romu・shakai 2回目完了'},
+  {y:2027,m:4, phase:3,emoji:'📝', title:'全科目 問題演習2周目',          targets:[{id:'roki',round:1,acts:['quiz']},{id:'rosai',round:1,acts:['quiz']},{id:'koyo',round:1,acts:['quiz']},{id:'choshu',round:1,acts:['quiz']},{id:'kenpo',round:1,acts:['quiz']},{id:'kosei',round:1,acts:['quiz']},{id:'kokunen',round:1,acts:['quiz']},{id:'romu',round:1,acts:['quiz']},{id:'shakai',round:1,acts:['quiz']}],goal:'全科目 演習2回目完了'},
+  {y:2027,m:5, phase:3,emoji:'🚀', title:'3周目スタート（労働法系）',       targets:[{id:'roki',round:2,acts:['slide','card','quiz']},{id:'rosai',round:2,acts:['slide','card','quiz']},{id:'koyo',round:2,acts:['slide','card','quiz']},{id:'choshu',round:2,acts:['slide','card','quiz']}],goal:'労働法系 3回目完了'},
+  {y:2027,m:6, phase:4,emoji:'🔥', title:'3周目完了（社会保険系）',         targets:[{id:'kenpo',round:2,acts:['slide','card','quiz']},{id:'kosei',round:2,acts:['slide','card','quiz']},{id:'kokunen',round:2,acts:['slide','card','quiz']},{id:'romu',round:2,acts:['slide','card','quiz']},{id:'shakai',round:2,acts:['slide','card','quiz']}],goal:'社会保険系 3回目完了'},
+  {y:2027,m:7, phase:4,emoji:'⚡', title:'総まとめ・弱点集中強化',          targets:[],goal:'全チェックリスト確認・弱点補強'},
+  {y:2027,m:8, phase:4,emoji:'🎯', title:'直前最終確認（〜8/22 試験）',    targets:[],goal:'試験本番！'},
+];
+
+function renderRoadmapSchedule() {
+  const container = document.getElementById('rm-schedule');
+  if (!container) return;
+  const progress = loadScProgress();
+  const now = new Date();
+  const nowY = now.getFullYear(), nowM = now.getMonth() + 1;
+  let html = '', curPhase = 0;
+  SCHEDULE_MONTHS.forEach(mo => {
+    if (mo.phase !== curPhase) {
+      curPhase = mo.phase;
+      const ph = SCHEDULE_PHASES[mo.phase - 1];
+      html += `<div class="rm-phase-header" style="grid-column:1/-1"><span class="rm-phase-label" style="background:${ph.color}">${ph.label}</span><span class="rm-phase-name">${ph.name}</span><span class="rm-phase-period">${ph.period}</span></div>`;
+    }
+    const isPast    = mo.y < nowY || (mo.y === nowY && mo.m < nowM);
+    const isCurrent = mo.y === nowY && mo.m === nowM;
+    let targetTotal = 0, targetDone = 0;
+    mo.targets.forEach(t => {
+      const subj = SC_SUBJECTS.find(s => s.id === t.id);
+      if (!subj) return;
+      subj.themes.forEach((_, ti) => t.acts.forEach(act => {
+        targetTotal++;
+        if (progress[t.id + '_' + ti + '_' + act + '_' + t.round]) targetDone++;
+      }));
+    });
+    const pct = targetTotal > 0 ? Math.round(targetDone / targetTotal * 100) : -1;
+    let sc, sl;
+    if (mo.targets.length === 0) {
+      sc = isCurrent ? 'status-current' : (isPast ? 'status-done' : 'status-future');
+      sl = isCurrent ? '📍 進行中' : (isPast ? '📅 完了期間' : '📅 予定');
+    } else if (isCurrent) {
+      sc = 'status-current'; sl = `📍 ${pct}% 進行中`;
+    } else if (!isPast) {
+      sc = 'status-future'; sl = '📅 予定';
+    } else {
+      sc = pct >= 80 ? 'status-done' : pct >= 30 ? 'status-behind' : 'status-missing';
+      sl = pct >= 80 ? `✅ ${pct}% 完了` : pct >= 30 ? `⚠️ ${pct}% 遅れ気味` : `❌ ${pct}% 未達成`;
+    }
+    const phColor = SCHEDULE_PHASES[mo.phase - 1].color;
+    html += `<div class="rm-month ${sc}" style="border-top-color:${phColor}">
+      <div class="rm-month-header"><span class="rm-month-name">${mo.y}年${mo.m}月</span><span class="rm-month-status ${sc}-badge">${sl}</span></div>
+      <div class="rm-month-title">${mo.emoji} ${mo.title}</div>
+      ${pct >= 0 ? `<div class="rm-month-bar-wrap"><div class="rm-month-bar" style="width:${pct}%;background:${phColor}"></div></div>` : ''}
+      <div class="rm-month-goal">🎯 ${mo.goal}</div>
+    </div>`;
+  });
+  container.innerHTML = html;
 }
 
 // ─── Init ─────────────────────────────────────────────
