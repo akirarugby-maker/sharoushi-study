@@ -402,12 +402,15 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
     </div>
     <button class="btn-next" onclick="changeCard(1)">次へ →</button>
   </div>
+  <div id="fc-quiz-link" style="display:none;margin-top:10px;text-align:center">
+    <button class="slide-link-btn slide-link-q" id="fc-quiz-btn" onclick="jumpToQuizFromCard()">📝 関連問題を解く</button>
+  </div>
 </div>
 
 <!-- 問題演習 -->
 <div id="tab-quiz" class="tab-content">
   <div id="quiz-return-bar" class="return-bar" style="display:none">
-    <button class="return-bar-btn" onclick="returnToSlide()">← スライドに戻る</button>
+    <button class="return-bar-btn" id="quiz-return-btn" onclick="returnFromQuiz()">← 戻る</button>
     <span class="return-bar-label" id="quiz-return-label"></span>
   </div>
   <div class="subject-selector" id="quiz-subject-selector"></div>
@@ -1171,6 +1174,7 @@ let currentSubject = 'roki';
 let currentSlide = 0;
 let currentCard = 0;
 let slideReturnPos = null;
+let fcReturnPos = null;
 let cardFlipped = false;
 let currentQuestion = 0;
 let quizScore = 0;
@@ -1435,7 +1439,28 @@ function jumpToQuiz(subjectId, qIdx) {
   const subj = subjects.find(s => s.id === currentSubject);
   const label = (subj ? subj.name : '') + ' スライド' + (currentSlide + 1) + '「' + (slide ? slide.title : '') + '」';
   document.getElementById('quiz-return-label').textContent = label;
+  document.getElementById('quiz-return-btn').textContent = '← スライドに戻る';
   document.getElementById('quiz-return-bar').style.display = '';
+  fcReturnPos = null;
+  _startQuiz(subjectId, qIdx);
+}
+
+function jumpToQuizFromCard() {
+  const cards = flashcardsData[currentSubject];
+  const c = cards[currentCard];
+  const qIdx = findRelatedQuestionFromCard(currentSubject, c);
+  if (qIdx < 0) return;
+  fcReturnPos = {subjectId: currentSubject, cardIdx: currentCard};
+  const subj = subjects.find(s => s.id === currentSubject);
+  const label = (subj ? subj.name : '') + ' カード' + (currentCard + 1) + '「' + c.q.slice(0, 20) + '…」';
+  document.getElementById('quiz-return-label').textContent = label;
+  document.getElementById('quiz-return-btn').textContent = '← フラッシュカードに戻る';
+  document.getElementById('quiz-return-bar').style.display = '';
+  slideReturnPos = null;
+  _startQuiz(currentSubject, qIdx);
+}
+
+function _startQuiz(subjectId, qIdx) {
   currentSubject = subjectId;
   document.querySelectorAll('#quiz-subject-selector .subject-btn').forEach((b, i) => {
     b.classList.toggle('active', subjects[i].id === subjectId);
@@ -1467,6 +1492,24 @@ function returnToSlide() {
   renderSlide();
 }
 
+function returnFromQuiz() {
+  document.getElementById('quiz-return-bar').style.display = 'none';
+  if (fcReturnPos) {
+    const {subjectId, cardIdx} = fcReturnPos;
+    fcReturnPos = null;
+    currentSubject = subjectId;
+    currentCard = cardIdx;
+    document.querySelectorAll('#fc-subject-selector .subject-btn').forEach((b, i) => {
+      b.classList.toggle('active', subjects[i].id === subjectId);
+      b.style.background = subjects[i].id === subjectId ? subjects[i].color : '';
+    });
+    showTab('flashcard');
+    renderCard();
+  } else {
+    returnToSlide();
+  }
+}
+
 // ─── Flashcard ───────────────────────────────────────
 function renderCard() {
   const cards = flashcardsData[currentSubject];
@@ -1482,6 +1525,10 @@ function renderCard() {
   const fc = document.getElementById('flashcard');
   fc.classList.remove('flipped');
   cardFlipped = false;
+  // 関連問題ボタン
+  const qIdx = findRelatedQuestionFromCard(currentSubject, c);
+  const linkDiv = document.getElementById('fc-quiz-link');
+  linkDiv.style.display = qIdx >= 0 ? '' : 'none';
 }
 
 function flipCard() {
@@ -1797,6 +1844,20 @@ function findRelatedCard(subjId, slide) {
 
 function findRelatedQuestion(subjId, slide) {
   const kws = slideKeywords(slide);
+  const qs = questionsData[subjId] || [];
+  for (let i = 0; i < qs.length; i++) {
+    const text = qs[i].q + ' ' + qs[i].opts.join(' ');
+    if (kws.some(kw => text.includes(kw))) return i;
+  }
+  return -1;
+}
+
+function findRelatedQuestionFromCard(subjId, card) {
+  const raw = card.q + ' ' + card.a;
+  const kws = [...new Set(
+    raw.split(/[（）「」・、。【】『』〜→※＊\s／\-\/のとをがはにでもへからまでより]+/)
+      .map(w => w.trim()).filter(w => w.length >= 3)
+  )];
   const qs = questionsData[subjId] || [];
   for (let i = 0; i < qs.length; i++) {
     const text = qs[i].q + ' ' + qs[i].opts.join(' ');
