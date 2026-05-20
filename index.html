@@ -7,35 +7,23 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#f0f4f8;color:#1e293b;min-height:100vh}
-
-/* Header */
 .app-header{background:linear-gradient(135deg,#1e3a5f 0%,#2d5986 100%);color:#fff;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .app-header h1{font-size:1.4rem;font-weight:700;letter-spacing:.5px}
 .app-header p{font-size:.8rem;opacity:.8;margin-top:2px}
-
-/* Tab Nav */
 .tab-nav{display:flex;background:#fff;border-bottom:2px solid #e2e8f0;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,.08)}
 .tab-btn{flex:0 0 auto;padding:12px 16px;border:none;background:none;cursor:pointer;font-size:.82rem;font-weight:600;color:#64748b;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
 .tab-btn.active{color:#1e3a5f;border-bottom-color:#1e3a5f;background:#f8fafc}
 .tab-btn:hover:not(.active){color:#1e3a5f;background:#f8fafc}
-
-/* Tab Content */
 .tab-content{display:none;padding:16px;max-width:900px;margin:0 auto}
 .tab-content.active{display:block}
-
-/* Subject Selector */
 .subject-selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .subject-btn{padding:7px 12px;border:2px solid #e2e8f0;border-radius:20px;background:#fff;cursor:pointer;font-size:.78rem;font-weight:600;transition:all .2s;color:#475569}
 .subject-btn.active{color:#fff;border-color:transparent}
-
-/* Cards */
 .card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:12px}
 .card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .card-icon{font-size:1.5rem}
 .card-title{font-size:1.1rem;font-weight:700;color:#1e293b}
 .card-subtitle{font-size:.8rem;color:#64748b;margin-top:2px}
-
-/* Roadmap */
 .roadmap-section{margin-bottom:20px}
 .roadmap-section h2{font-size:1.1rem;font-weight:700;color:#1e3a5f;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #bfdbfe}
 .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:16px}
@@ -48,16 +36,12 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .subject-table tr:last-child td{border-bottom:none}
 .subject-table tr:nth-child(even) td{background:#f8fafc}
 .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:700;color:#fff}
-
-/* Schedule */
 .schedule-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
 .schedule-month{background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .schedule-month h4{font-size:.9rem;font-weight:700;color:#1e3a5f;margin-bottom:8px}
 .schedule-month ul{list-style:none;padding:0}
 .schedule-month li{font-size:.8rem;color:#475569;padding:3px 0;padding-left:16px;position:relative}
 .schedule-month li::before{content:'→';position:absolute;left:0;color:#1e3a5f}
-
-/* Slides */
 .slide-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(0,0,0,.1);min-height:320px;position:relative}
 .slide-number{font-size:.75rem;color:#94a3b8;margin-bottom:8px}
 .slide-title{font-size:1.2rem;font-weight:800;color:#1e293b;margin-bottom:16px;display:flex;align-items:center;gap:8px}
@@ -74,8 +58,6 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .slide-counter{font-size:.85rem;color:#64748b;font-weight:600}
 .slide-progress{height:4px;background:#e2e8f0;border-radius:2px;margin-top:12px}
 .slide-progress-bar{height:100%;border-radius:2px;background:#1e3a5f;transition:width .3s}
-
-/* Flashcards */
 .flashcard-area{perspective:1000px;margin-bottom:16px}
 .flashcard{width:100%;min-height:200px;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform .5s}
 .flashcard.flipped{transform:rotateY(180deg)}
@@ -95,8 +77,6 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .btn-shuffle:hover{background:#cbd5e1}
 .fc-progress{height:4px;background:#e2e8f0;border-radius:2px;margin-top:10px}
 .fc-progress-bar{height:100%;border-radius:2px;background:#059669;transition:width .3s}
-
-/* Quiz */
 .quiz-card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 4px 16px rgba(0,0,0,.1)}
 .quiz-qnum{font-size:.75rem;color:#94a3b8;margin-bottom:8px}
 .quiz-question{font-size:.95rem;font-weight:600;color:#1e293b;margin-bottom:18px;line-height:1.7}
@@ -117,8 +97,6 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .result-msg{font-size:1rem;font-weight:600;margin-top:12px;color:#1e293b}
 .btn-retry{margin-top:16px;padding:10px 24px;background:#1e3a5f;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:.9rem;font-weight:600}
 .btn-retry:hover{background:#2d5986}
-
-/* YouTube */
 .yt-section{margin-bottom:24px}
 .yt-section h3{font-size:1rem;font-weight:700;color:#1e3a5f;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .yt-topics{display:flex;flex-wrap:wrap;gap:8px}
@@ -126,13 +104,42 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .yt-btn:hover{background:#fef2f2;border-color:#ef4444;color:#dc2626}
 .yt-btn .yt-icon{color:#ef4444;font-size:1rem}
 
-/* Responsive */
+/* ===== Scheduler ===== */
+.sc-header{display:flex;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.sc-countdown{background:linear-gradient(135deg,#1e3a5f,#2d5986);color:#fff;border-radius:14px;padding:18px 22px;text-align:center;min-width:130px}
+.sc-days{font-size:2.6rem;font-weight:800;line-height:1}
+.sc-days-label{font-size:.72rem;opacity:.85;margin-top:6px;line-height:1.4}
+.sc-overall{flex:1;background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;justify-content:center;min-width:180px}
+.sc-overall-label{font-size:.82rem;color:#64748b;margin-bottom:8px;font-weight:600}
+.sc-overall-bar{height:14px;background:#e2e8f0;border-radius:7px;overflow:hidden;margin-bottom:6px}
+.sc-overall-fill{height:100%;background:linear-gradient(90deg,#1e3a5f,#059669);border-radius:7px;transition:width .4s}
+.sc-overall-pct{font-size:1.4rem;font-weight:800;color:#1e3a5f}
+.sc-subject{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:12px}
+.sc-subject-header{display:flex;align-items:center;justify-content:space-between;padding-left:10px;margin-bottom:8px}
+.sc-subject-name{font-size:.95rem;font-weight:700;color:#1e293b}
+.sc-subject-pct{font-size:.82rem;font-weight:700;color:#64748b}
+.sc-subject-bar{height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;margin-bottom:14px}
+.sc-subject-fill{height:100%;border-radius:3px;transition:width .4s}
+.sc-theme{padding:10px 0;border-bottom:1px solid #f1f5f9}
+.sc-theme:last-child{border-bottom:none}
+.sc-theme-name{font-size:.83rem;font-weight:600;color:#334155;margin-bottom:8px}
+.sc-activity-row{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap}
+.sc-activity-label{font-size:.75rem;color:#64748b;min-width:80px;font-weight:600}
+.sc-rounds{display:flex;gap:6px}
+.sc-round{display:flex;align-items:center;gap:3px;cursor:pointer;font-size:.72rem;color:#94a3b8;padding:3px 7px;border:1px solid #e2e8f0;border-radius:5px;transition:all .15s;user-select:none}
+.sc-round input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:#1e3a5f;flex-shrink:0}
+.sc-round.done{background:#eff6ff;border-color:#bfdbfe;color:#1e3a5f;font-weight:600}
+.sc-reset-btn{font-size:.7rem;color:#94a3b8;background:none;border:1px solid #e2e8f0;border-radius:5px;padding:2px 7px;cursor:pointer;margin-left:auto}
+.sc-reset-btn:hover{color:#dc2626;border-color:#dc2626}
+
 @media(max-width:600px){
   .tab-btn{padding:10px 12px;font-size:.76rem}
   .card{padding:14px}
   .slide-card{padding:16px;min-height:280px}
   .slide-title{font-size:1rem}
   .info-grid{grid-template-columns:repeat(2,1fr)}
+  .sc-activity-label{min-width:70px}
+  .sc-days{font-size:2rem}
 }
 </style>
 </head>
@@ -144,15 +151,32 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 </div>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" onclick="showTab('roadmap')">🗺️ ロードマップ</button>
+  <button class="tab-btn active" onclick="showTab('scheduler')">📅 進捗管理</button>
+  <button class="tab-btn" onclick="showTab('roadmap')">🗺️ ロードマップ</button>
   <button class="tab-btn" onclick="showTab('slides')">📊 スライド学習</button>
   <button class="tab-btn" onclick="showTab('flashcard')">🃏 フラッシュカード</button>
   <button class="tab-btn" onclick="showTab('quiz')">📝 問題演習</button>
   <button class="tab-btn" onclick="showTab('youtube')">▶️ YouTube検索</button>
 </nav>
 
+<!-- 進捗管理（スケジューラ） -->
+<div id="tab-scheduler" class="tab-content active">
+  <div class="sc-header">
+    <div class="sc-countdown">
+      <div class="sc-days" id="sc-days">--</div>
+      <div class="sc-days-label">試験まで<br>2026年10月18日</div>
+    </div>
+    <div class="sc-overall">
+      <div class="sc-overall-label">📊 全体の学習進捗</div>
+      <div class="sc-overall-bar"><div class="sc-overall-fill" id="sc-overall-fill" style="width:0%"></div></div>
+      <div class="sc-overall-pct" id="sc-overall-pct">0%</div>
+    </div>
+  </div>
+  <div id="sc-subjects"></div>
+</div>
+
 <!-- ロードマップ -->
-<div id="tab-roadmap" class="tab-content active">
+<div id="tab-roadmap" class="tab-content">
   <div class="roadmap-section">
     <h2>📋 試験概要</h2>
     <div class="info-grid">
@@ -161,7 +185,7 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
       <div class="info-box"><div class="num">110</div><div class="label">総点数<br>（満点）</div></div>
       <div class="info-box"><div class="num">約6〜7%</div><div class="label">合格率</div></div>
       <div class="info-box"><div class="num">800〜1000h</div><div class="label">標準学習時間</div></div>
-      <div class="info-box"><div class="num">8月</div><div class="label">試験実施月</div></div>
+      <div class="info-box"><div class="num">10月18日</div><div class="label">試験日</div></div>
     </div>
     <div class="card">
       <p style="font-size:.85rem;line-height:1.8;color:#475569">
@@ -171,19 +195,10 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
       </p>
     </div>
   </div>
-
   <div class="roadmap-section">
     <h2>📊 科目別出題数</h2>
     <table class="subject-table">
-      <thead>
-        <tr>
-          <th>科目</th>
-          <th>選択式</th>
-          <th>択一式</th>
-          <th>合計点</th>
-          <th>難易度</th>
-        </tr>
-      </thead>
+      <thead><tr><th>科目</th><th>選択式</th><th>択一式</th><th>合計点</th><th>難易度</th></tr></thead>
       <tbody>
         <tr><td>⚖️ 労働基準法・安全衛生法</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#dc2626">高</span></td></tr>
         <tr><td>🏥 労働者災害補償保険法</td><td>5点(1問)</td><td>10点(10問)</td><td>15点</td><td><span class="badge" style="background:#d97706">中</span></td></tr>
@@ -197,64 +212,15 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
       </tbody>
     </table>
   </div>
-
   <div class="roadmap-section">
-    <h2>📅 6ヶ月学習スケジュール</h2>
+    <h2>📅 5ヶ月学習スケジュール（〜10月18日試験）</h2>
     <div class="schedule-grid">
-      <div class="schedule-month">
-        <h4>1ヶ月目：労働法基礎</h4>
-        <ul>
-          <li>労働基準法の全体像を把握</li>
-          <li>労働安全衛生法の概要</li>
-          <li>労働時間・賃金の基礎</li>
-          <li>スライド学習20枚×2周</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>2ヶ月目：労働保険</h4>
-        <ul>
-          <li>労働者災害補償保険法</li>
-          <li>雇用保険法の全体像</li>
-          <li>労働保険徴収法の基礎</li>
-          <li>フラッシュカードで用語暗記</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>3ヶ月目：健康保険</h4>
-        <ul>
-          <li>健康保険法の給付体系</li>
-          <li>標準報酬月額・保険料</li>
-          <li>高額療養費制度の詳細</li>
-          <li>問題演習を週3回実施</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>4ヶ月目：年金保険</h4>
-        <ul>
-          <li>厚生年金保険法の全体像</li>
-          <li>国民年金法の体系理解</li>
-          <li>老齢・障害・遺族給付比較</li>
-          <li>計算問題の練習</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>5ヶ月目：一般常識</h4>
-        <ul>
-          <li>労務管理一般常識の法律</li>
-          <li>社会保険一般常識の制度</li>
-          <li>最新の法改正事項確認</li>
-          <li>白書・統計の要点整理</li>
-        </ul>
-      </div>
-      <div class="schedule-month">
-        <h4>6ヶ月目：総仕上げ</h4>
-        <ul>
-          <li>過去問10年分の集中演習</li>
-          <li>苦手科目の集中補強</li>
-          <li>模擬試験で時間感覚をつかむ</li>
-          <li>選択式の穴埋め特訓</li>
-        </ul>
-      </div>
+      <div class="schedule-month"><h4>6月：労働法基礎</h4><ul><li>労働基準法の全体像</li><li>労働安全衛生法の概要</li><li>労働時間・賃金の基礎</li><li>スライド学習×3周</li></ul></div>
+      <div class="schedule-month"><h4>7月：労働保険</h4><ul><li>労働者災害補償保険法</li><li>雇用保険法の全体像</li><li>労働保険徴収法</li><li>フラッシュカードで暗記</li></ul></div>
+      <div class="schedule-month"><h4>8月：健康保険</h4><ul><li>健康保険法の給付体系</li><li>標準報酬月額・保険料</li><li>高額療養費制度</li><li>問題演習を週3回</li></ul></div>
+      <div class="schedule-month"><h4>9月：年金保険</h4><ul><li>厚生年金保険法全体像</li><li>国民年金法の体系</li><li>老齢・障害・遺族給付比較</li><li>計算問題の練習</li></ul></div>
+      <div class="schedule-month"><h4>9月後半：一般常識</h4><ul><li>労務管理一般常識</li><li>社会保険一般常識</li><li>最新の法改正確認</li><li>白書・統計の要点整理</li></ul></div>
+      <div class="schedule-month"><h4>10月：総仕上げ</h4><ul><li>過去問10年分の集中演習</li><li>苦手科目の集中補強</li><li>模擬試験で時間感覚</li><li>選択式の穴埋め特訓</li></ul></div>
     </div>
   </div>
 </div>
@@ -319,7 +285,7 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
     </div>
     <div class="quiz-result" id="quiz-result">
       <div class="result-score" id="result-score"></div>
-      <div class="result-label">点（20問中）</div>
+      <div class="result-label">点</div>
       <div class="result-msg" id="result-msg"></div>
       <button class="btn-retry" onclick="restartQuiz()">もう一度挑戦</button>
     </div>
@@ -329,12 +295,576 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 <!-- YouTube検索 -->
 <div id="tab-youtube" class="tab-content">
   <div class="card" style="margin-bottom:16px">
-    <p style="font-size:.85rem;color:#475569;line-height:1.7">
-      各科目の重要トピックボタンをクリックすると、YouTubeでの学習動画検索が開きます。
-      SR試験の解説動画、予備校講義、過去問解説など様々なコンテンツを活用しましょう。
-    </p>
+    <p style="font-size:.85rem;color:#475569;line-height:1.7">各科目の重要トピックボタンをクリックすると、YouTubeでの学習動画検索が開きます。SR試験の解説動画、予備校講義、過去問解説など様々なコンテンツを活用しましょう。</p>
   </div>
   <div id="yt-content"></div>
 </div>
 
 <script>
+// ===== Tab switching =====
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ===== Scheduler data =====
+const SC_SUBJECTS = [
+  { id:'rodo', name:'⚖️ 労働基準法・安全衛生法', color:'#dc2626',
+    themes:['労働基準法の総則・基本原則','労働契約・就業規則','労働時間・休憩・休日','時間外労働・深夜労働・割増賃金','年次有給休暇','賃金の支払い原則','解雇・退職・懲戒','労働安全衛生法の管理体制','健康診断・面接指導'] },
+  { id:'rosai', name:'🏥 労働者災害補償保険法', color:'#d97706',
+    themes:['適用・保険関係の成立','業務災害の認定','通勤災害の認定','療養補償給付・休業補償給付','傷病補償年金','障害補償給付・遺族補償給付','特別支給金・二次健康診断等給付'] },
+  { id:'koyo', name:'💼 雇用保険法', color:'#059669',
+    themes:['適用・被保険者の種類','基本手当の受給資格・給付日数','基本手当の日額計算・給付制限','就職促進給付','教育訓練給付','高年齢雇用継続給付','育児休業給付・介護休業給付'] },
+  { id:'choushuu', name:'💰 労働保険徴収法', color:'#7c3aed',
+    themes:['保険関係の成立・消滅','保険料の種類と計算','概算保険料の申告・納付','確定保険料の申告・精算','メリット制'] },
+  { id:'kenpo', name:'🩺 健康保険法', color:'#0891b2',
+    themes:['適用・被保険者','被扶養者の範囲','療養の給付・高額療養費','傷病手当金','出産育児一時金・出産手当金','埋葬料・家族療養費','標準報酬月額・保険料','任意継続被保険者'] },
+  { id:'kosei', name:'🏦 厚生年金保険法', color:'#1e3a5f',
+    themes:['被保険者・適用事業所','老齢厚生年金の受給要件・繰上げ・繰下げ','老齢厚生年金の額の計算','在職老齢年金','障害厚生年金・障害手当金','遺族厚生年金','標準報酬月額・保険料・離婚分割'] },
+  { id:'kokumin', name:'📋 国民年金法', color:'#be185d',
+    themes:['被保険者の種別（第1〜3号）','老齢基礎年金の受給要件・額','老齢基礎年金の繰上げ・繰下げ','障害基礎年金','遺族基礎年金','寡婦年金・死亡一時金','保険料・免除・猶予・付加年金'] },
+  { id:'romu', name:'📚 労務管理一般常識', color:'#ea580c',
+    themes:['労働組合法（団結権・団体交渉・争議行為）','労働関係調整法','男女雇用機会均等法','育児・介護休業法','最低賃金法','労働者派遣法','パートタイム・有期雇用労働法'] },
+  { id:'shakai', name:'🏛️ 社会保険一般常識', color:'#4f46e5',
+    themes:['社会保険制度の体系・概要','介護保険法','確定拠出年金法','確定給付企業年金法','社会保険労務士法','最新の統計・白書・法改正'] },
+];
+
+const ACTS = [
+  { key:'slide', label:'📊 スライド' },
+  { key:'card',  label:'🃏 カード' },
+  { key:'quiz',  label:'📝 演習' },
+];
+const ROUNDS = 3;
+
+// ===== Scheduler LocalStorage =====
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem('sr_progress') || '{}'); } catch(e) { return {}; }
+}
+function saveProgressData(data) {
+  localStorage.setItem('sr_progress', JSON.stringify(data));
+}
+
+// ===== Render Scheduler =====
+function renderScheduler() {
+  updateCountdown();
+  const progress = loadProgress();
+  const container = document.getElementById('sc-subjects');
+  container.innerHTML = '';
+
+  SC_SUBJECTS.forEach(subj => {
+    const subjectEl = document.createElement('div');
+    subjectEl.className = 'sc-subject';
+    subjectEl.id = 'sc-subj-' + subj.id;
+
+    const totalChecks = subj.themes.length * ACTS.length * ROUNDS;
+    let checkedCount = 0;
+
+    let themesHTML = '';
+    subj.themes.forEach((theme, ti) => {
+      let actsHTML = '';
+      ACTS.forEach(act => {
+        let roundsHTML = '';
+        for (let r = 0; r < ROUNDS; r++) {
+          const key = subj.id + '_' + ti + '_' + act.key + '_' + r;
+          const checked = progress[key] ? 'checked' : '';
+          if (checked) checkedCount++;
+          roundsHTML += `<label class="sc-round${checked ? ' done' : ''}" id="lbl-${key}">
+            <input type="checkbox" ${checked} onchange="onCheck('${key}',this)">${r+1}回目</label>`;
+        }
+        actsHTML += `<div class="sc-activity-row">
+          <span class="sc-activity-label">${act.label}</span>
+          <div class="sc-rounds">${roundsHTML}</div>
+        </div>`;
+      });
+      themesHTML += `<div class="sc-theme">
+        <div class="sc-theme-name">${theme}</div>
+        ${actsHTML}
+      </div>`;
+    });
+
+    const pct = totalChecks > 0 ? Math.round(checkedCount / totalChecks * 100) : 0;
+    subjectEl.innerHTML = `
+      <div class="sc-subject-header" style="border-left:4px solid ${subj.color};padding-left:10px">
+        <span class="sc-subject-name">${subj.name}</span>
+        <span class="sc-subject-pct" id="pct-${subj.id}">${pct}%</span>
+      </div>
+      <div class="sc-subject-bar">
+        <div class="sc-subject-fill" id="fill-${subj.id}" style="background:${subj.color};width:${pct}%"></div>
+      </div>
+      <div class="sc-themes">${themesHTML}</div>`;
+
+    container.appendChild(subjectEl);
+  });
+
+  updateOverallProgress(progress);
+}
+
+function onCheck(key, el) {
+  const progress = loadProgress();
+  progress[key] = el.checked;
+  saveProgressData(progress);
+  const lbl = document.getElementById('lbl-' + key);
+  if (lbl) lbl.classList.toggle('done', el.checked);
+  const parts = key.split('_');
+  const subjId = parts[0];
+  updateSubjectProgress(subjId, progress);
+  updateOverallProgress(progress);
+}
+
+function updateSubjectProgress(subjId, progress) {
+  const subj = SC_SUBJECTS.find(s => s.id === subjId);
+  if (!subj) return;
+  const total = subj.themes.length * ACTS.length * ROUNDS;
+  let checked = 0;
+  subj.themes.forEach((_, ti) => {
+    ACTS.forEach(act => {
+      for (let r = 0; r < ROUNDS; r++) {
+        if (progress[subjId + '_' + ti + '_' + act.key + '_' + r]) checked++;
+      }
+    });
+  });
+  const pct = total > 0 ? Math.round(checked / total * 100) : 0;
+  const pctEl = document.getElementById('pct-' + subjId);
+  const fillEl = document.getElementById('fill-' + subjId);
+  if (pctEl) pctEl.textContent = pct + '%';
+  if (fillEl) fillEl.style.width = pct + '%';
+}
+
+function updateOverallProgress(progress) {
+  let total = 0, checked = 0;
+  SC_SUBJECTS.forEach(subj => {
+    subj.themes.forEach((_, ti) => {
+      ACTS.forEach(act => {
+        for (let r = 0; r < ROUNDS; r++) {
+          total++;
+          if (progress[subj.id + '_' + ti + '_' + act.key + '_' + r]) checked++;
+        }
+      });
+    });
+  });
+  const pct = total > 0 ? Math.round(checked / total * 100) : 0;
+  document.getElementById('sc-overall-fill').style.width = pct + '%';
+  document.getElementById('sc-overall-pct').textContent = pct + '%';
+}
+
+// ===== Countdown =====
+function updateCountdown() {
+  const exam = new Date('2026-10-18');
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const diff = Math.ceil((exam - today) / 86400000);
+  document.getElementById('sc-days').textContent = diff > 0 ? diff : 0;
+}
+
+// ===== Slides data =====
+const SLIDES = {
+  rodo: [
+    { title:'労働基準法の基本原則', points:['労働条件の最低基準を定める（労基法1条）','労働者と使用者は対等な立場で決定（2条）','均等待遇：国籍・信条・社会的身分による差別禁止（3条）','男女同一賃金の原則（4条）','強制労働の禁止・中間搾取の排除（5・6条）'] },
+    { title:'労働時間・休憩・休日', points:['法定労働時間：1日8時間・1週40時間（32条）','休憩：6時間超→45分、8時間超→1時間以上（34条）','休日：週1日以上または4週4日以上（35条）','時間外・休日労働：三六協定の締結・届出が必要（36条）','時間外の上限：原則月45時間・年360時間'] },
+    { title:'割増賃金の種類と率', points:['時間外労働（法定超）：25%以上の割増','休日労働（法定休日）：35%以上の割増','深夜労働（22時〜5時）：25%以上の割増','時間外＋深夜：50%以上の割増','月60時間超の時間外：50%以上（中小企業も2023年4月から）'] },
+    { title:'年次有給休暇', points:['取得要件：6ヶ月継続勤務＋全労働日の8割以上出勤','付与日数：6ヶ月で10日、最大20日まで加算','時季指定権は労働者に、使用者は時季変更権あり','年10日以上付与の労働者に年5日の時季指定義務（使用者）','比例付与：週所定労働日数が少ない労働者への比例付与あり'] },
+    { title:'賃金の支払い5原則', points:['① 通貨払いの原則','② 直接払いの原則（本人に直接）','③ 全額払いの原則（法定控除を除く）','④ 毎月1回以上払いの原則','⑤ 一定期日払いの原則'] },
+  ],
+  rosai: [
+    { title:'労災保険の適用', points:['労働者を1人でも雇用する事業は原則適用（強制適用）','農林水産の小規模事業は暫定任意適用','特別加入制度：中小事業主・一人親方なども加入可能','保険関係の成立：適用事業所となった日から自動成立','保険料は全額事業主負担'] },
+    { title:'業務災害の認定', points:['業務遂行性：労働者が業務に従事している状態','業務起因性：業務と傷病との間に相当因果関係','過労死（脳・心臓疾患）：発症前6ヶ月の業務過重性を評価','精神障害：強い心理的負荷による労災認定基準あり','故意・重大な過失がある場合は給付制限あり'] },
+    { title:'療養補償給付・休業補償給付', points:['療養補償給付：指定医療機関での治療は現物給付（無料）','療養の費用の支給：指定外では費用支給','休業補償給付：休業4日目から、給付基礎日額の60%','休業特別支給金：給付基礎日額の20%（合計80%）','待期期間：業務上3日間は使用者が平均賃金の60%補償'] },
+    { title:'障害補償給付・遺族補償給付', points:['障害等級：1〜14級、1〜7級は年金、8〜14級は一時金','障害補償年金：給付基礎日額×313日分〜131日分','遺族補償年金：受給資格者は配偶者・子・父母等','遺族補償一時金：遺族補償年金受給者がいない場合','葬祭料：315,000円＋給付基礎日額×30日分（最低保証あり）'] },
+    { title:'通勤災害・特別支給金', points:['通勤災害：就業との直接関係がある通勤途上の災害','通勤の逸脱・中断：原則として通勤災害の対象外','特別支給金：社会復帰促進等事業から支給（給付と別途）','休業特別支給金：休業給付基礎日額の20%','障害特別支給金：1〜14級、8〜342万円の一時金'] },
+  ],
+  koyo: [
+    { title:'雇用保険の被保険者', points:['一般被保険者：週所定20時間以上・31日以上雇用見込み','高年齢被保険者：65歳以上の一般被保険者','短期雇用特例被保険者：季節的に雇用される者','日雇労働被保険者：日々・30日以内期間で雇用される者','マルチジョブホルダー：複数の事業所合算で要件を満たす場合（65歳以上）'] },
+    { title:'基本手当の受給資格', points:['被保険者期間：離職前2年間に12ヶ月以上（原則）','特定受給資格者・特定理由離職者：離職前1年間に6ヶ月以上','待期期間：離職後7日間は基本手当不支給','給付制限：自己都合退職は2ヶ月間給付制限（一部3ヶ月）','所定給付日数：90〜360日（年齢・被保険者期間・理由による）'] },
+    { title:'基本手当の日額計算', points:['賃金日額：離職前6ヶ月の賃金総額÷180','基本手当日額：賃金日額×給付率（50〜80%）','給付率：賃金日額が低いほど高い給付率（最大80%）','上限額・下限額：毎年8月1日に改定','離職日が60歳〜64歳の場合は給付率の上限が45〜80%'] },
+    { title:'就職促進給付・教育訓練給付', points:['再就職手当：所定給付日数の3分の2以上残して就職→60%支給','就業促進定着手当：再就職後6ヶ月経過後に賃金低下があれば支給','一般教育訓練給付金：費用の20%（上限10万円）','専門実践教育訓練給付金：費用の50〜70%（最大168万円）','教育訓練支援給付金：45歳未満の受講者に基本手当の80%'] },
+    { title:'雇用継続給付', points:['高年齢雇用継続基本給付金：60〜65歳・賃金が75%未満に低下','高年齢再就職給付金：基本手当受給後に就職した場合','育児休業給付金：休業開始時賃金日額×支給日数×67%(6ヶ月後50%)','介護休業給付金：休業前賃金の67%・支給期間は93日分','出生時育児休業給付金（産後パパ育休）：28日間を2回に分割可'] },
+  ],
+  choushuu: [
+    { title:'保険関係の成立と消滅', points:['強制適用事業：適用事業となった日に自動成立','任意適用事業：認可を受けた日に成立','一元適用事業と二元適用事業：業種による違い','保険関係の消滅：廃業・解散等で事業が廃止された日の翌日','継続事業の一括：同一企業の複数事業所を一括適用可能'] },
+    { title:'保険料の計算', points:['労働保険料＝賃金総額×保険料率','労災保険料率：業種ごと（0.25〜88/1000）・全額事業主負担','雇用保険料率：労使折半（使用者負担分が多い）','確定保険料：前年度の確定賃金総額に基づき精算','賃金総額：3月31日締めの1年間の賃金総額'] },
+    { title:'概算保険料の申告・納付', points:['概算保険料：年度当初に前年度保険料を基に概算申告','申告・納付期限：毎年6月1日〜7月10日（継続事業）','延納（分割納付）：概算保険料が40万円以上or一元のどちらかが20万円以上','第1期：7月10日、第2期：10月31日、第3期：翌年1月31日','新設事業場：保険関係成立から50日以内に申告・納付'] },
+    { title:'確定保険料と精算', points:['確定保険料：前年度の確定賃金総額で計算して精算','申告・納付期限：翌年度の6月1日〜7月10日','概算超過分：翌年度の概算保険料に充当または還付','概算不足分：追加納付が必要','有期事業：事業終了後50日以内に申告・納付'] },
+    { title:'メリット制', points:['保険料率を業務実績に応じて上下させる制度','対象：継続事業（一定規模以上）・有期事業','労災保険料率：±40%の範囲で増減（特例あり）','計算：収支率=(保険給付額+特別支給金)÷保険料額×100','3年間の実績を基に翌々年度の保険料率を決定'] },
+  ],
+  kenpo: [
+    { title:'健康保険の被保険者', points:['強制被保険者：適用事業所で働く70歳未満の労働者','短時間労働者（106万円の壁）：101人以上の事業所で要件を満たせば被保険者','任意継続被保険者：退職後2年間任意継続可能（要件あり）','特例退職被保険者：OB健保の特例','適用除外：船員・日雇労働者・所在不明の代議士等'] },
+    { title:'被扶養者の要件', points:['同一世帯：年収130万円未満（60歳以上・障害者は180万円未満）','別居の場合：年収が被保険者の仕送り額未満','対象範囲：3親等内の親族（直系・配偶者・兄弟姉妹等）','優先順位：複数の被保険者に扶養可能な場合は主な生計維持者','後期高齢者（75歳以上）は被扶養者になれない'] },
+    { title:'療養の給付・高額療養費', points:['療養の給付：現物給付（医療機関での窓口負担3割等）','自己負担割合：70〜74歳は2割、義務教育就学前は2割','高額療養費：1ヶ月の自己負担が上限額を超えた場合支給','上限額：所得区分に応じて5区分（一般は80,100円+α）','多数回該当：直近12ヶ月で3回以上該当すると上限引き下げ'] },
+    { title:'傷病手当金', points:['対象：業務外の傷病による連続3日の待期期間後から支給','支給額：標準報酬日額の3分の2','支給期間：支給開始日から通算1年6ヶ月','待期：連続3日間（公休日含む）の労務不能が必要','出勤した日・賃金が支給された日（一定以上）は不支給'] },
+    { title:'標準報酬月額・保険料', points:['標準報酬月額：毎年4〜6月の報酬をもとに定時決定','随時改定：報酬が著しく変動した場合（2等級以上の差）','保険料率：都道府県ごとに異なる（協会けんぽ）','折半：保険料は原則として使用者と被保険者で半々','賞与の保険料：標準賞与額（1,000円未満切捨て）×保険料率'] },
+  ],
+  kosei: [
+    { title:'厚生年金保険の被保険者', points:['第1種被保険者：70歳未満の一般の被保険者','第2種被保険者：船員','第3種被保険者：坑内員','第4種被保険者：廃止（過去の任意継続）','在職者（70歳以上）：保険料負担なし・在職老齢年金の調整あり'] },
+    { title:'老齢厚生年金の受給要件', points:['受給要件：老齢基礎年金の受給資格期間（10年）を満たすこと','受給開始年齢：原則65歳（特別支給の老齢厚生年金は60〜64歳）','繰上げ受給：60〜64歳、0.4%/月減額','繰下げ受給：66〜75歳、0.7%/月増額（最大84%増）','加給年金：厚生年金20年以上・65歳到達時に配偶者・子の加算'] },
+    { title:'老齢厚生年金の額の計算', points:['報酬比例部分：平均標準報酬額×5.481/1000×被保険者月数（2003年4月以降）','経過的加算：定額部分−老齢基礎年金相当額','加給年金額：配偶者に約22万円（特別加算含む）・子に約7万5千円','振替加算：配偶者が65歳になると配偶者の基礎年金に加算','長期加入者の特例・障害者の特例あり'] },
+    { title:'在職老齢年金', points:['低在老（60〜64歳）：基本月額＋総報酬月額相当額が50万円超で調整','高在老（65歳以上）：基本月額＋総報酬月額相当額が50万円超で調整','調整額：超過額の1/2を年金から支給停止','2022年4月から低在老の支給停止基準額が28万円→47万円に統一','退職改定：退職後1ヶ月経過で年金額を改定'] },
+    { title:'障害厚生年金・遺族厚生年金', points:['障害厚生年金：初診日に厚生年金の被保険者・障害等級1〜3級','3級：障害基礎年金の対象外（厚生年金独自の給付）','障害手当金：障害等級5〜7級相当の一時金','遺族厚生年金：被保険者期間25年or300月みなし','受給権者の順位：配偶者・子→父母→孫→祖父母'] },
+  ],
+  kokumin: [
+    { title:'国民年金の被保険者', points:['第1号被保険者：日本在住の20〜60歳・第2・3号以外','第2号被保険者：厚生年金保険（共済）の被保険者','第3号被保険者：第2号被保険者に扶養される20〜60歳の配偶者','任意加入被保険者：60〜65歳（保険料不足の補充等）','海外在住日本人も任意加入可能（20〜65歳）'] },
+    { title:'老齢基礎年金の受給要件と額', points:['受給資格期間：10年以上（合算対象期間含む）','満額受給：480ヶ月（40年）の保険料納付済みで満額','満額：795,000円（2024年度・67歳以下）','減額：480ヶ月に満たない場合は按分計算','振替加算・経過的寡婦加算などの加算制度あり'] },
+    { title:'老齢基礎年金の繰上げ・繰下げ', points:['繰上げ受給：60歳から可、1月0.4%の減額（最大24%）','繰下げ受給：66歳から75歳まで、1月0.7%の増額（最大84%）','繰上げは一度決めると取り消し不可','繰下げ中の障害・遺族給付への影響に注意','2022年4月から繰下げ上限が70歳→75歳に延長'] },
+    { title:'障害基礎年金・遺族基礎年金', points:['障害基礎年金：初診日に被保険者・保険料納付要件あり','障害等級：1級・2級（障害厚生年金は3級まで）','子の加算：1・2人目各約23万円、3人目以降約7.5万円','遺族基礎年金：子のある配偶者または子に支給','子の要件：18歳の年度末まで（障害1・2級は20歳未満）'] },
+    { title:'保険料と免除制度', points:['保険料：月額16,980円（2024年度）','付加保険料：月400円追加で年金200円×納付月数増額','免除制度：全額・4分の3・半額・4分の1免除（所得に応じ）','猶予制度：学生納付特例・50歳未満の納付猶予','追納：10年以内に追納可能（2年超は加算金あり）'] },
+  ],
+  romu: [
+    { title:'労働組合法', points:['労働三権：団結権・団体交渉権・争議権（憲法28条保障）','不当労働行為：使用者の組合活動への介入・妨害の禁止','団体交渉：使用者は正当な理由なく拒否不可','労働協約：書面による協約は組合員に規範的効力あり','ユニオン・ショップ：組合員でない者は解雇する協定'] },
+    { title:'男女雇用機会均等法', points:['募集・採用から定年・退職まで全ての雇用で性差別禁止','間接差別の禁止：形式中立でも実質的に差別となる場合','セクシャルハラスメント防止措置義務（使用者）','妊娠・出産を理由とした不利益取扱いの禁止','マタハラ防止：妊娠・出産等を理由とした嫌がらせ防止'] },
+    { title:'育児・介護休業法', points:['育児休業：子が1歳（最大2歳）になるまで取得可能','産後パパ育休（出生時育児休業）：出生後8週間以内に4週間','育児短時間勤務：3歳未満の子を持つ従業員への措置義務','介護休業：対象家族1人につき通算93日・3回まで分割可','介護短時間勤務等の措置・フレックス等の選択的措置義務'] },
+    { title:'最低賃金法・労働者派遣法', points:['最低賃金：地域別と特定（産業別）の2種類','時間額のみで規定、都道府県ごとに異なる','派遣労働者：派遣元が雇用主、派遣先が指揮命令','派遣期間の制限：同一組織への派遣は原則3年が上限','60歳以上・派遣元への直接雇用等は期間制限の例外'] },
+    { title:'パートタイム・有期雇用労働法', points:['同一労働同一賃金：基本給・賞与・福利厚生等の不合理な差別禁止','均衡待遇：職務内容・配置変更範囲等を考慮した待遇','均等待遇：職務内容・配置変更範囲が同じなら差別的取扱い禁止','説明義務：待遇差の内容・理由の説明を求められたら説明義務','正社員転換推進措置：転換できる機会の提供義務'] },
+  ],
+  shakai: [
+    { title:'社会保険制度の体系', points:['社会保険：医療保険・年金保険・労災保険・雇用保険・介護保険','公的扶助：生活保護法（最後のセーフティネット）','社会福祉：障害者・高齢者・児童への支援','公衆衛生：感染症対策・保健所等','皆保険・皆年金：1961年に達成'] },
+    { title:'介護保険法', points:['保険者：市区町村（特別区含む）','第1号被保険者：65歳以上・要介護・要支援認定で利用','第2号被保険者：40〜64歳・特定疾病（16種類）のみ','保険料：第1号は年金から天引き、第2号は医療保険と一体徴収','給付の種類：居宅サービス・施設サービス・地域密着型サービス'] },
+    { title:'確定拠出年金法', points:['個人型（iDeCo）：個人が自分で掛金を拠出して運用','企業型（企業型DC）：企業が掛金を拠出（マッチング拠出可）','掛金の上限：企業型の有無により異なる（iDeCoは23,000円〜）','運用：自己責任で投資信託・定期預金等から選択','受給：原則60歳以降、老齢給付金（一時金or年金）'] },
+    { title:'社会保険労務士法', points:['社会保険労務士：厚生労働大臣に登録が必要','独占業務：労働・社会保険諸法令の書類作成・提出代行','附記業務：労務管理・社会保険に関する相談・指導','社労士法人：社員全員が社労士であることが必要','懲戒処分：戒告・1年以内の業務停止・業務禁止'] },
+    { title:'最新の統計・白書のポイント', points:['労働力調査：就業者数・完全失業率（総務省）','毎月勤労統計：賃金・労働時間（厚生労働省）','高齢社会白書・少子化対策白書：人口動態の把握','労働経済白書：雇用情勢・労働条件の分析','社会保障給付費：医療・年金・福祉の割合を把握'] },
+  ],
+};
+
+// ===== Flashcard data =====
+const FC = {
+  rodo:[
+    {q:'法定労働時間は？',a:'1日8時間・1週40時間（労基法32条）'},
+    {q:'時間外労働の割増賃金率は？',a:'25%以上（月60時間超は50%以上）'},
+    {q:'年次有給休暇の発生要件は？',a:'6ヶ月継続勤務＋全労働日の8割以上出勤'},
+    {q:'三六協定とは？',a:'労使協定による時間外・休日労働の免罰的効果を持つ協定（36条）'},
+    {q:'賃金の全額払いの原則の例外は？',a:'法令に基づく税金・社会保険料の控除、労使協定による控除'},
+  ],
+  rosai:[
+    {q:'労災保険の保険料は誰が負担？',a:'全額事業主負担'},
+    {q:'休業補償給付の支給額は？',a:'給付基礎日額の60%（特別支給金20%と合わせて80%）'},
+    {q:'休業補償給付はいつから支給？',a:'休業4日目から（待期3日間は使用者が補償）'},
+    {q:'障害等級で年金となるのは何級以上？',a:'1〜7級（8〜14級は一時金）'},
+    {q:'通勤災害の「通勤」の定義は？',a:'就業に関し、住居と就業場所の間の合理的な経路・方法による往復'},
+  ],
+  koyo:[
+    {q:'雇用保険の被保険者要件は？',a:'週所定20時間以上かつ31日以上の雇用見込み'},
+    {q:'基本手当の待期期間は？',a:'離職後7日間（自己都合は別途給付制限2ヶ月）'},
+    {q:'再就職手当の支給要件は？',a:'所定給付日数の3分の1以上残して安定した職業に就いた場合'},
+    {q:'育児休業給付の支給率は？',a:'休業開始前賃金の67%（6ヶ月経過後は50%）'},
+    {q:'特定受給資格者とは？',a:'倒産・解雇等により再就職準備の時間的余裕なく離職した者'},
+  ],
+  choushuu:[
+    {q:'概算保険料の申告期限は？',a:'毎年6月1日〜7月10日（継続事業）'},
+    {q:'労災保険料は誰が負担？',a:'全額事業主負担'},
+    {q:'雇用保険料の負担は？',a:'労使折半（使用者分が若干多い）'},
+    {q:'メリット制の収支率とは？',a:'（保険給付額＋特別支給金）÷保険料額×100'},
+    {q:'有期事業の確定保険料申告期限は？',a:'事業終了後50日以内'},
+  ],
+  kenpo:[
+    {q:'傷病手当金の支給額は？',a:'標準報酬日額の3分の2'},
+    {q:'傷病手当金の支給期間は？',a:'支給開始日から通算1年6ヶ月'},
+    {q:'高額療養費の一般区分の自己負担上限は？',a:'80,100円＋（医療費−267,000円）×1%'},
+    {q:'任意継続被保険者の継続期間は？',a:'最大2年間'},
+    {q:'定時決定に使う報酬月は？',a:'4月・5月・6月の3ヶ月'},
+  ],
+  kosei:[
+    {q:'老齢厚生年金の繰下げ増額率は？',a:'1月当たり0.7%（66〜75歳、最大84%）'},
+    {q:'加給年金の支給要件は？',a:'厚生年金の被保険者期間が20年以上で65歳到達時に配偶者・子がいる場合'},
+    {q:'在職老齢年金の支給停止基準は？',a:'基本月額＋総報酬月額相当額が50万円超の部分の半額を停止'},
+    {q:'障害厚生年金の等級は？',a:'1〜3級（3級は障害基礎年金なし・厚生年金独自）'},
+    {q:'離婚時の年金分割とは？',a:'婚姻期間中の標準報酬の最大50%を分割できる制度'},
+  ],
+  kokumin:[
+    {q:'老齢基礎年金の受給資格期間は？',a:'10年以上'},
+    {q:'満額の老齢基礎年金に必要な納付月数は？',a:'480ヶ月（40年）'},
+    {q:'国民年金の繰上げ受給の減額率は？',a:'1月当たり0.4%（最大24%減）'},
+    {q:'障害基礎年金の等級は？',a:'1級・2級のみ（3級は障害厚生年金のみ）'},
+    {q:'付加年金の保険料と増額は？',a:'月額400円追加で年200円×付加保険料納付月数の増額'},
+  ],
+  romu:[
+    {q:'育児休業の取得可能期間は？',a:'子が1歳（最高2歳）になるまで（父母ともに取得可）'},
+    {q:'介護休業の上限日数は？',a:'対象家族1人につき通算93日・3回まで分割可'},
+    {q:'産後パパ育休（出生時育児休業）の期間は？',a:'出生後8週間以内に4週間（2回に分割可）'},
+    {q:'不当労働行為の禁止事項は？',a:'組合員への不利益取扱い・団体交渉拒否・組合への支配介入等'},
+    {q:'同一労働同一賃金の対象は？',a:'基本給・賞与・各種手当・福利厚生など全ての待遇'},
+  ],
+  shakai:[
+    {q:'介護保険の第1号被保険者は？',a:'65歳以上（全ての要介護・要支援状態で利用可能）'},
+    {q:'介護保険の第2号被保険者は？',a:'40〜64歳（特定疾病16種類が原因の場合のみ利用可）'},
+    {q:'社会保険労務士の独占業務は？',a:'労働・社会保険法令の申請書等の作成・提出代行・帳簿書類の作成'},
+    {q:'iDeCoの掛金上限（会社員・企業型DC加入なし）は？',a:'月額23,000円'},
+    {q:'公的年金制度の「皆年金」達成年は？',a:'1961年（昭和36年）'},
+  ],
+};
+
+// ===== Quiz data =====
+const QUIZ = {
+  rodo:[
+    {q:'法定労働時間について正しいものはどれか。',opts:['1日8時間・1週44時間','1日8時間・1週40時間','1日9時間・1週40時間','1日7時間・1週35時間'],ans:1,exp:'労働基準法32条により、法定労働時間は1日8時間・1週40時間です（特例として10人未満の特定業種は44時間）。'},
+    {q:'年次有給休暇の取得要件として正しいものはどれか。',opts:['3ヶ月継続勤務＋全労働日の7割以上出勤','6ヶ月継続勤務＋全労働日の8割以上出勤','1年継続勤務＋全労働日の8割以上出勤','6ヶ月継続勤務＋全労働日の7割以上出勤'],ans:1,exp:'年次有給休暇の発生要件は「6ヶ月継続勤務」かつ「全労働日の8割以上出勤」の両方を満たすことです（労基法39条）。'},
+    {q:'月60時間を超える時間外労働に対する割増賃金率は？',opts:['25%以上','35%以上','50%以上','60%以上'],ans:2,exp:'月60時間を超える法定時間外労働は50%以上の割増賃金が必要です。中小企業も2023年4月1日から適用されています（労基法37条）。'},
+    {q:'使用者が労働者に時季変更権を行使できる場合はどれか。',opts:['業務の都合上やむを得ない場合','繁忙期に請求があった場合','事業の正常な運営が妨げられる場合','使用者が必要と判断した場合'],ans:2,exp:'使用者の時季変更権は「事業の正常な運営を妨げる場合」に限られます。単に繁忙期というだけでは時季変更権は行使できません（労基法39条5項）。'},
+  ],
+  rosai:[
+    {q:'労災保険料の負担について正しいものはどれか。',opts:['労使折半','全額労働者負担','全額事業主負担','国が3分の1負担'],ans:2,exp:'労働者災害補償保険の保険料は全額事業主負担です。労働者は保険料を負担しません。'},
+    {q:'休業補償給付の支給が開始されるのはいつからか。',opts:['休業1日目から','休業2日目から','休業3日目から','休業4日目から'],ans:3,exp:'休業補償給付は休業4日目から支給されます。1〜3日目の待期期間中は使用者が平均賃金の60%を補償します（労災保険法14条）。'},
+    {q:'障害補償給付で年金が支給されるのは何級から何級までか。',opts:['1〜5級','1〜7級','1〜10級','1〜14級'],ans:1,exp:'障害補償給付は1〜7級が年金、8〜14級が一時金として支給されます（労災保険法15条）。'},
+    {q:'通勤災害について正しいものはどれか。',opts:['就業と直接関係のない通勤も対象','帰り道の逸脱は全て対象外','日常生活上の行為による逸脱・中断後は対象外（例外あり）','自転車通勤は対象外'],ans:2,exp:'通勤途上で逸脱・中断した場合、その後の経路は原則として通勤ではなくなります。ただし、日用品の購入等の日常生活上の行為を行う場合の逸脱・中断は例外として認められます。'},
+  ],
+  koyo:[
+    {q:'雇用保険の被保険者となる要件はどれか。',opts:['週所定労働時間15時間以上かつ30日以上の雇用見込み','週所定労働時間20時間以上かつ31日以上の雇用見込み','週所定労働時間25時間以上かつ60日以上の雇用見込み','週所定労働時間30時間以上かつ31日以上の雇用見込み'],ans:1,exp:'雇用保険の被保険者要件は「週所定労働時間20時間以上」かつ「31日以上の雇用見込み」の両方を満たすことです（雇用保険法6条）。'},
+    {q:'自己都合退職の場合の給付制限期間は？',opts:['1ヶ月','2ヶ月','3ヶ月','6ヶ月'],ans:1,exp:'自己都合退職の場合、原則として7日間の待期期間後さらに2ヶ月の給付制限があります（5年間で2回目以降は3ヶ月）。'},
+    {q:'育児休業給付金の支給率（育休開始から6ヶ月以内）はいくらか。',opts:['50%','60%','67%','80%'],ans:2,exp:'育児休業給付金の支給率は休業開始前の賃金の67%です（6ヶ月経過後は50%）。なお、2025年4月から一定要件を満たす場合は育休開始180日間は80%に引き上げが予定されています。'},
+    {q:'再就職手当が支給される要件はどれか。',opts:['所定給付日数の2分の1以上残して就職','所定給付日数の3分の1以上残して安定した職業に就いた','所定給付日数の3分の2以上残して就職','残日数にかかわらず就職すれば支給'],ans:1,exp:'再就職手当は所定給付日数の「3分の1以上」残して安定した職業に就いた場合に支給されます（給付日数の3分の2以上残した場合は支給率が高くなります）。'},
+  ],
+  choushuu:[
+    {q:'概算保険料の申告・納付期限はいつか（継続事業）。',opts:['毎年4月1日〜5月10日','毎年5月1日〜6月10日','毎年6月1日〜7月10日','毎年7月1日〜8月10日'],ans:2,exp:'継続事業の概算保険料の申告・納付期限は毎年6月1日から7月10日です（労働保険徴収法15条）。'},
+    {q:'労災保険料の負担者はだれか。',opts:['全額労働者負担','全額事業主負担','労使折半','国が全額負担'],ans:1,exp:'労働保険（労災保険）の保険料は全額事業主負担です（徴収法31条）。'},
+    {q:'メリット制の収支率の計算式として正しいものはどれか。',opts:['保険料÷保険給付額×100','（保険給付額＋特別支給金）÷保険料額×100','保険給付額÷賃金総額×100','特別支給金÷保険料額×100'],ans:1,exp:'メリット制の収支率は「（保険給付額＋特別支給金）÷保険料額×100」で計算されます。この収支率に基づいて保険料率が±40%の範囲で増減します。'},
+    {q:'新設事業場の保険関係成立後の申告期限はいつか。',opts:['10日以内','30日以内','50日以内','60日以内'],ans:2,exp:'新設事業場では、保険関係成立後50日以内に概算保険料を申告・納付しなければなりません（徴収法15条）。'},
+  ],
+  kenpo:[
+    {q:'傷病手当金の支給期間として正しいものはどれか。',opts:['支給開始から1年','支給開始から1年3ヶ月','支給開始日から通算1年6ヶ月','支給開始から2年'],ans:2,exp:'傷病手当金は支給開始日から通算1年6ヶ月分が支給されます（健康保険法99条）。2022年1月改正により「通算」での計算に変更されました。'},
+    {q:'標準報酬月額の定時決定に使用する報酬月はいつか。',opts:['1・2・3月','3・4・5月','4・5・6月','7・8・9月'],ans:2,exp:'定時決定は4月・5月・6月の3ヶ月間の報酬をもとに行われ、9月1日に改定されます（健康保険法41条）。'},
+    {q:'被扶養者の認定における年収要件はいくらか（60歳未満の場合）。',opts:['100万円未満','103万円未満','130万円未満','150万円未満'],ans:2,exp:'健康保険の被扶養者の認定要件として、同一世帯の場合は年間収入が130万円未満であることが必要です（60歳以上・障害者は180万円未満）。'},
+    {q:'任意継続被保険者となれる期間はいつまでか。',opts:['退職後1年','退職後2年','退職後3年','退職後5年'],ans:1,exp:'任意継続被保険者として継続できる期間は最大2年間です（健康保険法37条）。保険料の滞納等があれば途中で資格喪失します。'},
+  ],
+  kosei:[
+    {q:'老齢厚生年金の繰下げ受給における1月あたりの増額率は？',opts:['0.4%','0.5%','0.7%','1.0%'],ans:2,exp:'老齢厚生年金（および老齢基礎年金）の繰下げ受給は1ヶ月あたり0.7%増額されます（最大75歳まで、84%増）。'},
+    {q:'在職老齢年金の支給停止が始まる基準額は？',opts:['基本月額＋総報酬月額相当額が28万円超','基本月額＋総報酬月額相当額が47万円超','基本月額＋総報酬月額相当額が50万円超','基本月額＋総報酬月額相当額が60万円超'],ans:2,exp:'2022年4月から65歳未満・65歳以上ともに「基本月額＋総報酬月額相当額が50万円超」の部分の2分の1が支給停止されます。'},
+    {q:'加給年金が支給される要件はどれか。',opts:['被保険者期間が10年以上','被保険者期間が20年以上で65歳到達時に配偶者・子がいる','60歳から受給開始した場合','在職中は必ず支給される'],ans:1,exp:'加給年金は、厚生年金の被保険者期間が20年以上で、65歳到達時（または退職時）に扶養する配偶者や子（18歳年度末まで）がいる場合に支給されます。'},
+    {q:'障害厚生年金の等級について正しいものはどれか。',opts:['1〜2級のみ','1〜3級のみ','1〜5級まで','1〜14級まで'],ans:1,exp:'障害厚生年金は1級・2級・3級があります。3級は障害基礎年金がない厚生年金独自の給付です。また3級に満たない場合でも「障害手当金」（一時金）があります。'},
+  ],
+  kokumin:[
+    {q:'老齢基礎年金の受給資格期間はどれか。',opts:['5年以上','10年以上','20年以上','25年以上'],ans:1,exp:'老齢基礎年金の受給資格期間は10年以上です（2017年8月改正で25年から短縮）。合算対象期間（カラ期間）を含めて計算します。'},
+    {q:'老齢基礎年金を満額受給するために必要な納付月数は？',opts:['360ヶ月（30年）','420ヶ月（35年）','480ヶ月（40年）','540ヶ月（45年）'],ans:2,exp:'老齢基礎年金の満額受給には480ヶ月（40年）の保険料納付済み期間等が必要です（国民年金法27条）。'},
+    {q:'国民年金の繰上げ受給における1月あたりの減額率は？',opts:['0.2%','0.4%','0.5%','0.7%'],ans:1,exp:'老齢基礎年金の繰上げ受給は1ヶ月あたり0.4%減額されます（2022年4月から0.5%→0.4%に変更）。60歳から受給すると最大24%の減額です。'},
+    {q:'付加年金の保険料（月額）と年金増額の関係はどれか。',opts:['月200円追加→年100円×月数','月300円追加→年150円×月数','月400円追加→年200円×月数','月500円追加→年250円×月数'],ans:2,exp:'付加保険料は月額400円を追加で納付し、年金額は「200円×付加保険料を納付した月数」が増額されます。2年で元が取れる計算です。'},
+  ],
+  romu:[
+    {q:'不当労働行為に該当するものはどれか。',opts:['労働組合員に昇給を与えること','正当な理由なく団体交渉を拒否すること','労働協約を締結すること','争議行為中に代替要員を使うこと'],ans:1,exp:'正当な理由のない団体交渉の拒否は不当労働行為（拒否）にあたります（労組法7条2号）。使用者は正当な理由がない限り団体交渉に応じる義務があります。'},
+    {q:'育児休業を取得できる子の年齢上限はどれか（原則）。',opts:['6ヶ月','1歳','1歳6ヶ月','2歳'],ans:1,exp:'育児休業は原則として子が1歳になるまで取得できます。保育所に入れない等の要件を満たす場合は1歳6ヶ月、さらに2歳まで延長可能です（育介法5条）。'},
+    {q:'介護休業の取得可能日数（1人の対象家族につき）はどれか。',opts:['30日','60日','93日','180日'],ans:2,exp:'介護休業は対象家族1人につき通算93日まで取得できます（3回まで分割可能）（育介法11条）。'},
+    {q:'最低賃金法の最低賃金の種類はどれか。',opts:['都道府県別のみ','産業別のみ','地域別と特定（産業別）の2種類','全国一律のみ'],ans:2,exp:'最低賃金には、都道府県ごとに定める「地域別最低賃金」と特定の産業に適用される「特定最低賃金（産業別）」の2種類があります。'},
+  ],
+  shakai:[
+    {q:'介護保険の第2号被保険者が給付を受けられる場合はどれか。',opts:['全ての要介護・要支援状態','特定疾病による要介護・要支援状態のみ','65歳以上であれば全て','医師の判断があれば全て'],ans:1,exp:'第2号被保険者（40〜64歳）が介護保険給付を受けられるのは、16種類の特定疾病（末期がん・関節リウマチ等）が原因の場合に限られます（介護保険法7条3項2号）。'},
+    {q:'社会保険労務士の独占業務に含まれるものはどれか。',opts:['訴訟代理','労働保険の申請書類の作成・提出代行','税務申告書の作成','登記申請の代理'],ans:1,exp:'社労士の独占業務は労働・社会保険諸法令に基づく申請書等の「作成」・「提出代行」・「事務代理」です。訴訟代理は弁護士、税務は税理士、登記は司法書士の業務です。'},
+    {q:'確定拠出年金（iDeCo）の運用の特徴はどれか。',opts:['国が運用する','保険会社が一律に運用する','自己責任で運用商品を選択する','運用成績に関わらず確定した給付がある'],ans:2,exp:'確定拠出年金は「確定拠出」の名の通り、掛金額は確定していますが給付額は運用成績によって変わります。加入者自身が投資信託や定期預金などの運用商品を選択します。'},
+    {q:'公的年金制度で「皆年金」が達成された年は？',opts:['1955年（昭和30年）','1961年（昭和36年）','1973年（昭和48年）','1985年（昭和60年）'],ans:1,exp:'「皆保険・皆年金」は1961年（昭和36年）に達成されました。国民健康保険法・国民年金法の本格施行により、全国民が何らかの医療保険・年金制度に加入できる体制が整いました。'},
+  ],
+};
+
+// ===== YouTube data =====
+const YT = [
+  { subject:'⚖️ 労働基準法・安全衛生法', topics:['社労士 労働基準法 基礎','労働時間 割増賃金 社労士','年次有給休暇 社労士試験','労働安全衛生法 社労士'] },
+  { subject:'🏥 労働者災害補償保険法', topics:['社労士 労災保険 基礎','業務災害 通勤災害 認定','休業補償給付 労災','障害補償給付 遺族補償給付'] },
+  { subject:'💼 雇用保険法', topics:['社労士 雇用保険 基礎','基本手当 受給資格 社労士','育児休業給付 雇用保険','高年齢雇用継続給付 社労士'] },
+  { subject:'💰 労働保険徴収法', topics:['社労士 徴収法 基礎','概算保険料 確定保険料','メリット制 社労士試験','労働保険 保険料計算'] },
+  { subject:'🩺 健康保険法', topics:['社労士 健康保険 基礎','傷病手当金 健康保険','高額療養費 社労士試験','標準報酬月額 保険料'] },
+  { subject:'🏦 厚生年金保険法', topics:['社労士 厚生年金 基礎','老齢厚生年金 計算','在職老齢年金 社労士','遺族厚生年金 障害厚生年金'] },
+  { subject:'📋 国民年金法', topics:['社労士 国民年金 基礎','老齢基礎年金 受給要件','障害基礎年金 遺族基礎年金','国民年金 免除制度'] },
+  { subject:'📚 労務管理一般常識', topics:['社労士 労務管理 一般常識','育児介護休業法 社労士','男女雇用機会均等法 社労士','労働者派遣法 社労士'] },
+  { subject:'🏛️ 社会保険一般常識', topics:['社労士 社会保険 一般常識','介護保険法 社労士試験','確定拠出年金 iDeCo 社労士','社会保険労務士法 解説'] },
+];
+
+// ===== Subject keys in order =====
+const SUBJ_KEYS = Object.keys(SLIDES);
+const SUBJ_COLORS = {rodo:'#dc2626',rosai:'#d97706',koyo:'#059669',choushuu:'#7c3aed',kenpo:'#0891b2',kosei:'#1e3a5f',kokumin:'#be185d',romu:'#ea580c',shakai:'#4f46e5'};
+const SUBJ_NAMES = {rodo:'⚖️ 労働基準法',rosai:'🏥 労災保険法',koyo:'💼 雇用保険法',choushuu:'💰 徴収法',kenpo:'🩺 健康保険法',kosei:'🏦 厚生年金法',kokumin:'📋 国民年金法',romu:'📚 労務管理',shakai:'🏛️ 社会保険'};
+
+// ===== Slides =====
+let slideSubj = 'rodo', slideIdx = 0;
+
+function initSlides() {
+  const sel = document.getElementById('slide-subject-selector');
+  SUBJ_KEYS.forEach(k => {
+    const btn = document.createElement('button');
+    btn.className = 'subject-btn' + (k === slideSubj ? ' active' : '');
+    btn.textContent = SUBJ_NAMES[k];
+    btn.style.cssText = k === slideSubj ? `background:${SUBJ_COLORS[k]};border-color:${SUBJ_COLORS[k]}` : '';
+    btn.onclick = () => {
+      slideSubj = k; slideIdx = 0;
+      sel.querySelectorAll('.subject-btn').forEach(b => { b.classList.remove('active'); b.style.cssText=''; });
+      btn.classList.add('active');
+      btn.style.cssText = `background:${SUBJ_COLORS[k]};border-color:${SUBJ_COLORS[k]}`;
+      renderSlide();
+    };
+    sel.appendChild(btn);
+  });
+  renderSlide();
+}
+
+function renderSlide() {
+  const slides = SLIDES[slideSubj];
+  const s = slides[slideIdx];
+  document.getElementById('slide-num').textContent = SUBJ_NAMES[slideSubj];
+  document.getElementById('slide-title').textContent = s.title;
+  document.getElementById('slide-points').innerHTML = s.points.map(p => `<li>${p}</li>`).join('');
+  document.getElementById('slide-counter').textContent = `${slideIdx+1} / ${slides.length}`;
+  document.getElementById('slide-progress-bar').style.width = ((slideIdx+1)/slides.length*100) + '%';
+}
+
+function changeSlide(dir) {
+  const slides = SLIDES[slideSubj];
+  slideIdx = (slideIdx + dir + slides.length) % slides.length;
+  renderSlide();
+}
+
+// ===== Flashcards =====
+let fcSubj = 'rodo', fcIdx = 0, fcOrder = [];
+
+function initFC() {
+  const sel = document.getElementById('fc-subject-selector');
+  SUBJ_KEYS.forEach(k => {
+    const btn = document.createElement('button');
+    btn.className = 'subject-btn' + (k === fcSubj ? ' active' : '');
+    btn.textContent = SUBJ_NAMES[k];
+    btn.style.cssText = k === fcSubj ? `background:${SUBJ_COLORS[k]};border-color:${SUBJ_COLORS[k]}` : '';
+    btn.onclick = () => {
+      fcSubj = k; fcIdx = 0;
+      sel.querySelectorAll('.subject-btn').forEach(b => { b.classList.remove('active'); b.style.cssText=''; });
+      btn.classList.add('active');
+      btn.style.cssText = `background:${SUBJ_COLORS[k]};border-color:${SUBJ_COLORS[k]}`;
+      initFCOrder(); renderCard();
+    };
+    sel.appendChild(btn);
+  });
+  initFCOrder(); renderCard();
+}
+
+function initFCOrder() {
+  fcOrder = FC[fcSubj].map((_,i) => i);
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function renderCard() {
+  const card = FC[fcSubj][fcOrder[fcIdx]];
+  document.getElementById('fc-front').textContent = card.q;
+  document.getElementById('fc-back').textContent = card.a;
+  document.getElementById('fc-counter').textContent = `${fcIdx+1} / ${fcOrder.length}`;
+  document.getElementById('fc-progress-bar').style.width = ((fcIdx+1)/fcOrder.length*100) + '%';
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+
+function changeCard(dir) {
+  fcIdx = (fcIdx + dir + fcOrder.length) % fcOrder.length;
+  renderCard();
+}
+
+function shuffleCards() {
+  for (let i = fcOrder.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [fcOrder[i], fcOrder[j]] = [fcOrder[j], fcOrder[i]];
+  }
+  fcIdx = 0; renderCard();
+}
+
+// ===== Quiz =====
+let qSubj = 'rodo', qIdx = 0, qScore = 0, qAnswered = false, qOrder = [];
+
+function initQuiz() {
+  const sel = document.getElementById('quiz-subject-selector');
+  SUBJ_KEYS.forEach(k => {
+    const btn = document.createElement('button');
+    btn.className = 'subject-btn' + (k === qSubj ? ' active' : '');
+    btn.textContent = SUBJ_NAMES[k];
+    btn.style.cssText = k === qSubj ? `background:${SUBJ_COLORS[k]};border-color:${SUBJ_COLORS[k]}` : '';
+    btn.onclick = () => {
+      qSubj = k;
+      sel.querySelectorAll('.subject-btn').forEach(b => { b.classList.remove('active'); b.style.cssText=''; });
+      btn.classList.add('active');
+      btn.style.cssText = `background:${SUBJ_COLORS[k]};border-color:${SUBJ_COLORS[k]}`;
+      startQuiz();
+    };
+    sel.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz() {
+  qOrder = QUIZ[qSubj].map((_,i) => i);
+  for (let i = qOrder.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [qOrder[i],qOrder[j]]=[qOrder[j],qOrder[i]];
+  }
+  qIdx = 0; qScore = 0; qAnswered = false;
+  document.getElementById('quiz-result').classList.remove('show');
+  document.getElementById('quiz-card').style.display = '';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUIZ[qSubj][qOrder[qIdx]];
+  document.getElementById('quiz-qnum').textContent = `問題 ${qIdx+1} / ${qOrder.length}`;
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-score').textContent = `正解数: ${qScore}`;
+  document.getElementById('quiz-next-btn').style.display = 'none';
+  document.getElementById('quiz-explanation').className = 'quiz-explanation';
+  const ol = document.getElementById('quiz-options');
+  ol.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const li = document.createElement('li');
+    li.className = 'quiz-option';
+    li.textContent = `${['ア','イ','ウ','エ'][i]}. ${opt}`;
+    li.onclick = () => selectOption(i);
+    ol.appendChild(li);
+  });
+  qAnswered = false;
+}
+
+function selectOption(i) {
+  if (qAnswered) return;
+  qAnswered = true;
+  const q = QUIZ[qSubj][qOrder[qIdx]];
+  const opts = document.querySelectorAll('.quiz-option');
+  opts.forEach((el, idx) => {
+    el.classList.add('disabled');
+    if (idx === q.ans) el.classList.add('correct');
+    else if (idx === i) el.classList.add('wrong');
+  });
+  if (i === q.ans) qScore++;
+  const exp = document.getElementById('quiz-explanation');
+  exp.textContent = q.exp;
+  exp.classList.add('show');
+  document.getElementById('quiz-score').textContent = `正解数: ${qScore}`;
+  document.getElementById('quiz-next-btn').style.display = '';
+}
+
+function nextQuestion() {
+  qIdx++;
+  if (qIdx >= qOrder.length) {
+    document.getElementById('quiz-card').style.display = 'none';
+    const result = document.getElementById('quiz-result');
+    result.classList.add('show');
+    document.getElementById('result-score').textContent = `${qScore}/${qOrder.length}`;
+    const pct = Math.round(qScore/qOrder.length*100);
+    document.getElementById('result-msg').textContent = pct >= 80 ? '素晴らしい！合格レベルです！' : pct >= 60 ? 'もう少し！苦手な箇所を復習しましょう' : '基礎から復習して再挑戦しましょう';
+  } else {
+    renderQuestion();
+  }
+}
+
+function restartQuiz() { startQuiz(); }
+
+// ===== YouTube =====
+function renderYT() {
+  const container = document.getElementById('yt-content');
+  YT.forEach(sec => {
+    const div = document.createElement('div');
+    div.className = 'yt-section';
+    div.innerHTML = `<h3>▶️ ${sec.subject}</h3><div class="yt-topics">${
+      sec.topics.map(t => `<button class="yt-btn" onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent('社労士 '+t)}','_blank')"><span class="yt-icon">▶</span>${t}</button>`).join('')
+    }</div>`;
+    container.appendChild(div);
+  });
+}
+
+// ===== Init =====
+window.addEventListener('load', function() {
+  renderScheduler();
+  initSlides();
+  initFC();
+  initQuiz();
+  renderYT();
+});
+</script>
+</body>
+</html>
