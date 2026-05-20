@@ -1367,21 +1367,23 @@ function renderSlide() {
   // Example
   const ex = document.getElementById('slide-example');
   if (s.ex) { ex.innerHTML = s.ex; ex.style.display = 'block'; } else { ex.style.display = 'none'; }
-  // Link buttons
+  // Link buttons（キーワードマッチング）
   const links = document.getElementById('slide-links');
   links.innerHTML = '';
-  if (s.fc !== undefined) {
+  const fcIdx = findRelatedCard(currentSubject, s);
+  const qIdx  = findRelatedQuestion(currentSubject, s);
+  if (fcIdx >= 0) {
     const b = document.createElement('button');
     b.className = 'slide-link-btn slide-link-fc';
     b.innerHTML = '🃏 関連フラッシュカードで練習';
-    b.onclick = () => jumpToFlashcard(currentSubject, s.fc);
+    b.onclick = () => jumpToFlashcard(currentSubject, fcIdx);
     links.appendChild(b);
   }
-  if (s.q !== undefined) {
+  if (qIdx >= 0) {
     const b = document.createElement('button');
     b.className = 'slide-link-btn slide-link-q';
     b.innerHTML = '📝 この分野の問題を解く';
-    b.onclick = () => jumpToQuiz(currentSubject, s.q);
+    b.onclick = () => jumpToQuiz(currentSubject, qIdx);
     links.appendChild(b);
   }
   document.getElementById('slide-counter').textContent = (currentSlide + 1) + ' / ' + slides.length;
@@ -1772,6 +1774,35 @@ function resetSubjectProgress(subjId) {
   saveScProgress(progress);
   renderScheduler();
   if (document.getElementById('tab-roadmap').classList.contains('active')) renderRoadmapSchedule();
+}
+
+// ─── Keyword matching ────────────────────────────────
+function slideKeywords(slide) {
+  const src = slide.title + ' ' + slide.points.slice(0, 3).join(' ');
+  // 区切り：記号・助詞・接続詞
+  const words = src.split(/[（）「」・、。【】『』〜→※＊\s／\-\/のとをがはにでもへからまでより]+/)
+    .map(w => w.trim()).filter(w => w.length >= 3);
+  return [...new Set(words)];
+}
+
+function findRelatedCard(subjId, slide) {
+  const kws = slideKeywords(slide);
+  const cards = flashcardsData[subjId] || [];
+  for (let i = 0; i < cards.length; i++) {
+    const text = cards[i].q + ' ' + cards[i].a;
+    if (kws.some(kw => text.includes(kw))) return i;
+  }
+  return -1;
+}
+
+function findRelatedQuestion(subjId, slide) {
+  const kws = slideKeywords(slide);
+  const qs = questionsData[subjId] || [];
+  for (let i = 0; i < qs.length; i++) {
+    const text = qs[i].q + ' ' + qs[i].opts.join(' ');
+    if (kws.some(kw => text.includes(kw))) return i;
+  }
+  return -1;
 }
 
 // ─── Auto-check helpers ───────────────────────────────
