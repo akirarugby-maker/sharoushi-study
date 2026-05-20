@@ -231,6 +231,8 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .sc-theme{padding:10px 0;border-bottom:1px solid #f1f5f9}
 .sc-theme:last-child{border-bottom:none}
 .sc-theme-name{font-size:.83rem;font-weight:600;color:#334155;margin-bottom:8px}
+.sc-theme-link{cursor:pointer;color:#2563eb;text-decoration:underline dotted;text-underline-offset:2px}
+.sc-theme-link:hover{color:#1d4ed8}
 .sc-activity-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
 .sc-activity-label{font-size:.74rem;color:#64748b;min-width:80px;font-weight:600}
 .sc-rounds{display:flex;gap:5px}
@@ -1278,7 +1280,7 @@ function renderScheduler() {
         }
         actsHTML += `<div class="sc-activity-row"><span class="sc-activity-label">${act.label}</span><div class="sc-rounds">${roundsHTML}</div></div>`;
       });
-      themesHTML += `<div class="sc-theme"><div class="sc-theme-name">${theme}</div>${actsHTML}</div>`;
+      themesHTML += `<div class="sc-theme"><div class="sc-theme-name sc-theme-link" onclick="jumpToSlideFromTheme('${subj.id}',${ti})">${theme}</div>${actsHTML}</div>`;
     });
     const el = document.createElement('div');
     el.className = 'sc-subject';
@@ -1956,6 +1958,21 @@ function resetSubjectProgress(subjId) {
   saveScProgress(progress);
   renderScheduler();
   if (document.getElementById('tab-roadmap').classList.contains('active')) renderRoadmapSchedule();
+}
+
+function jumpToSlideFromTheme(subjId, themeIdx) {
+  const scSubj = SC_SUBJECTS.find(s => s.id === subjId);
+  const slides = slidesData[subjId];
+  if (!scSubj || !slides) return;
+  const slideIdx = Math.floor(themeIdx / scSubj.themes.length * slides.length);
+  currentSubject = subjId;
+  currentSlide = slideIdx;
+  document.querySelectorAll('#slide-subject-selector .subject-btn').forEach((b, i) => {
+    b.classList.toggle('active', subjects[i].id === subjId);
+    b.style.background = subjects[i].id === subjId ? subjects[i].color : '';
+  });
+  showTab('slides');
+  renderSlide();
 }
 
 // ─── Keyword matching ────────────────────────────────
