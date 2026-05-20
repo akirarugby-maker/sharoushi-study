@@ -1682,30 +1682,38 @@ function renderRoadmapSchedule() {
 }
 
 // ─── Auth ─────────────────────────────────────────────
-const AUTH_HASH = 'ba3282c4e2d82073e56a22baf3237e90fdf2dea1aa6816ded8d34d54cad6d04d';
-const AUTH_TOKEN_KEY = 'sr_auth_token';
+// パスワード一覧（type:'master'=台数無制限、type:'user'=通常）
+const AUTH_PASSWORDS = [
+  { hash:'25f8a0b063936a84d4ba9d31319c127f8fa2179f7406b4a652345361099e5443', type:'master' },
+  { hash:'67452ad0e2349d394798baccba0eb390a598ff430e798b887976f419811e01d2', type:'user',  label:'naoya' },
+];
 
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
+function authTokenKey(hash) { return 'sr_auth_' + hash.slice(0, 12); }
+
 async function initAuth() {
-  const token = localStorage.getItem(AUTH_TOKEN_KEY);
-  if (token && token === AUTH_HASH.slice(0, 24)) {
-    document.getElementById('auth-overlay').style.display = 'none';
-    return;
+  for (const pw of AUTH_PASSWORDS) {
+    const stored = localStorage.getItem(authTokenKey(pw.hash));
+    if (stored === pw.hash.slice(0, 24)) {
+      document.getElementById('auth-overlay').style.display = 'none';
+      return;
+    }
   }
   document.getElementById('auth-overlay').style.display = 'flex';
   setTimeout(() => document.getElementById('auth-pw').focus(), 100);
 }
 
 async function submitAuth() {
-  const pw = document.getElementById('auth-pw').value;
-  const hash = await sha256(pw);
-  if (hash === AUTH_HASH) {
+  const input = document.getElementById('auth-pw').value;
+  const hash = await sha256(input);
+  const matched = AUTH_PASSWORDS.find(pw => pw.hash === hash);
+  if (matched) {
     if (document.getElementById('auth-remember').checked) {
-      localStorage.setItem(AUTH_TOKEN_KEY, AUTH_HASH.slice(0, 24));
+      localStorage.setItem(authTokenKey(matched.hash), matched.hash.slice(0, 24));
     }
     document.getElementById('auth-overlay').style.display = 'none';
     document.getElementById('auth-pw').value = '';
@@ -1718,7 +1726,7 @@ async function submitAuth() {
 
 function logoutDevice() {
   if (confirm('このデバイスの登録を解除します。次回からパスワードが必要になります。')) {
-    localStorage.removeItem(AUTH_TOKEN_KEY);
+    AUTH_PASSWORDS.forEach(pw => localStorage.removeItem(authTokenKey(pw.hash)));
     location.reload();
   }
 }
