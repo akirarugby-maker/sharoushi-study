@@ -171,6 +171,26 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 /* Slide Links */
 .slide-links{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .return-bar{display:flex;align-items:center;gap:10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:8px 14px;margin-bottom:12px}
+/* Search */
+.search-bar{background:#1a3355;padding:10px 20px}
+.search-wrap{position:relative;max-width:700px;margin:0 auto}
+.search-input{width:100%;padding:10px 42px 10px 16px;border:none;border-radius:22px;font-size:.9rem;outline:none;box-sizing:border-box;background:#fff;color:#1e293b}
+.search-input::placeholder{color:#94a3b8}
+.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1rem;pointer-events:none}
+.search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1rem;cursor:pointer;color:#64748b;display:none}
+.search-results{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);max-height:60vh;overflow-y:auto;z-index:500;display:none}
+.search-results.show{display:block}
+.search-group{padding:6px 0}
+.search-group-label{font-size:.7rem;font-weight:700;color:#94a3b8;letter-spacing:.08em;padding:6px 16px 2px;text-transform:uppercase}
+.search-item{display:flex;align-items:flex-start;gap:10px;padding:10px 16px;cursor:pointer;transition:background .15s}
+.search-item:hover{background:#f8fafc}
+.search-item-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
+.search-item-body{flex:1;min-width:0}
+.search-item-title{font-size:.83rem;font-weight:600;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-item-sub{font-size:.74rem;color:#64748b;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-item-subject{font-size:.68rem;padding:1px 7px;border-radius:8px;color:#fff;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.search-hl{background:#fef08a;border-radius:2px}
+.search-empty{padding:20px 16px;text-align:center;color:#64748b;font-size:.85rem}
 .return-bar-btn{display:flex;align-items:center;gap:5px;padding:6px 14px;border:1px solid #93c5fd;border-radius:20px;background:#fff;color:#1d4ed8;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s}
 .return-bar-btn:hover{background:#dbeafe}
 .return-bar-label{font-size:.78rem;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -270,6 +290,14 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
     <p>SR試験 完全対策 ─ 9科目・全分野収録</p>
   </div>
   <span class="auth-logout" onclick="logoutDevice()">🔓 デバイス登録解除</span>
+</div>
+
+<div class="search-bar">
+  <div class="search-wrap">
+    <input class="search-input" id="search-input" type="search" placeholder="🔍 用語・キーワードで検索（スライド・カード・問題）"
+      oninput="onSearchInput(this.value)" onsearch="onSearchInput(this.value)">
+    <div class="search-results" id="search-results"></div>
+  </div>
 </div>
 
 <nav class="tab-nav">
@@ -1740,6 +1768,113 @@ function renderRoadmapSchedule() {
   });
   container.innerHTML = html;
 }
+
+// ─── Search ───────────────────────────────────────────
+let searchTimer = null;
+
+function onSearchInput(q) {
+  clearTimeout(searchTimer);
+  const panel = document.getElementById('search-results');
+  if (!q || q.trim().length < 2) { panel.classList.remove('show'); return; }
+  searchTimer = setTimeout(() => renderSearchResults(q.trim()), 180);
+}
+
+function hl(text, q) {
+  const safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp('(' + safe + ')', 'gi'), '<span class="search-hl">$1</span>');
+}
+
+function renderSearchResults(q) {
+  const panel = document.getElementById('search-results');
+  const results = [];
+
+  subjects.forEach(subj => {
+    // スライド
+    (slidesData[subj.id] || []).forEach((s, i) => {
+      const hay = s.title + ' ' + s.points.join(' ');
+      if (hay.includes(q)) results.push({type:'slide', subj, idx:i,
+        title: s.title, sub: s.points.find(p => p.includes(q)) || s.points[0] || ''});
+    });
+    // フラッシュカード
+    (flashcardsData[subj.id] || []).forEach((c, i) => {
+      if (c.q.includes(q) || c.a.includes(q)) results.push({type:'card', subj, idx:i,
+        title: c.q, sub: c.a});
+    });
+    // 問題演習
+    (questionsData[subj.id] || []).forEach((qq, i) => {
+      const hay = qq.q + ' ' + qq.opts.join(' ');
+      if (hay.includes(q)) results.push({type:'quiz', subj, idx:i,
+        title: qq.q, sub: qq.opts.join(' / ')});
+    });
+  });
+
+  if (results.length === 0) {
+    panel.innerHTML = '<div class="search-empty">「' + q + '」に一致する内容が見つかりませんでした</div>';
+    panel.classList.add('show');
+    return;
+  }
+
+  const icons = {slide:'📊', card:'🃏', quiz:'📝'};
+  const labels = {slide:'スライド学習', card:'フラッシュカード', quiz:'問題演習'};
+  let html = '';
+  ['slide','card','quiz'].forEach(type => {
+    const group = results.filter(r => r.type === type).slice(0, 5);
+    if (!group.length) return;
+    html += `<div class="search-group"><div class="search-group-label">${icons[type]} ${labels[type]}</div>`;
+    group.forEach(r => {
+      html += `<div class="search-item" onclick="goSearchResult('${type}','${r.subj.id}',${r.idx})">
+        <span class="search-item-subject" style="background:${r.subj.color}">${r.subj.short}</span>
+        <div class="search-item-body">
+          <div class="search-item-title">${hl(r.title.slice(0,60), q)}</div>
+          <div class="search-item-sub">${hl(r.sub.slice(0,80), q)}</div>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  if (results.length > 15) html += `<div class="search-empty" style="font-size:.74rem">他 ${results.length - 15} 件（キーワードを絞るとより正確に）</div>`;
+  panel.innerHTML = html;
+  panel.classList.add('show');
+}
+
+function goSearchResult(type, subjId, idx) {
+  document.getElementById('search-results').classList.remove('show');
+  document.getElementById('search-input').value = '';
+  currentSubject = subjId;
+  if (type === 'slide') {
+    currentSlide = idx;
+    document.querySelectorAll('#slide-subject-selector .subject-btn').forEach((b, i) => {
+      b.classList.toggle('active', subjects[i].id === subjId);
+      b.style.background = subjects[i].id === subjId ? subjects[i].color : '';
+    });
+    showTab('slides'); renderSlide();
+  } else if (type === 'card') {
+    currentCard = idx; cardFlipped = false;
+    document.querySelectorAll('#fc-subject-selector .subject-btn').forEach((b, i) => {
+      b.classList.toggle('active', subjects[i].id === subjId);
+      b.style.background = subjects[i].id === subjId ? subjects[i].color : '';
+    });
+    showTab('flashcard'); renderCard();
+  } else {
+    quizCards = [...questionsData[subjId]];
+    currentQuestion = Math.min(idx, quizCards.length - 1);
+    quizScore = 0; quizAnswered = false;
+    document.querySelectorAll('#quiz-subject-selector .subject-btn').forEach((b, i) => {
+      b.classList.toggle('active', subjects[i].id === subjId);
+      b.style.background = subjects[i].id === subjId ? subjects[i].color : '';
+    });
+    document.getElementById('quiz-result').classList.remove('show');
+    document.getElementById('quiz-card').style.display = '';
+    showTab('quiz'); renderQuestion();
+  }
+}
+
+// 検索パネル外クリックで閉じる
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) {
+    document.getElementById('search-results').classList.remove('show');
+  }
+});
 
 // ─── Auth ─────────────────────────────────────────────
 // パスワード一覧（type:'master'=台数無制限、type:'user'=通常）
