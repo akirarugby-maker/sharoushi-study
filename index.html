@@ -123,6 +123,10 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
 .quiz-option.disabled{cursor:default}
 .quiz-explanation{margin-top:14px;padding:12px 16px;background:#fffbeb;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;font-size:.83rem;color:#78350f;line-height:1.6;display:none}
 .quiz-explanation.show{display:block}
+.quiz-verdict{display:none;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:12px;font-size:1.3rem;font-weight:800;margin-bottom:12px;letter-spacing:.05em}
+.quiz-verdict.show{display:flex}
+.quiz-verdict.correct{background:#d1fae5;color:#065f46;border:2px solid #059669}
+.quiz-verdict.wrong{background:#fee2e2;color:#991b1b;border:2px solid #dc2626}
 .quiz-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
 .quiz-score{font-size:.85rem;color:#64748b;font-weight:600}
 .quiz-result{background:#fff;border-radius:14px;padding:28px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.1);display:none}
@@ -412,6 +416,7 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
       <div class="quiz-qnum" id="quiz-qnum"></div>
       <div class="quiz-question" id="quiz-question"></div>
       <ul class="quiz-options" id="quiz-options"></ul>
+      <div class="quiz-verdict" id="quiz-verdict"></div>
       <div class="quiz-explanation" id="quiz-explanation"></div>
       <div class="quiz-nav">
         <span class="quiz-score" id="quiz-score"></span>
@@ -1528,6 +1533,8 @@ function renderQuestion() {
     li.onclick = () => selectAnswer(i);
     ul.appendChild(li);
   });
+  document.getElementById('quiz-verdict').className = 'quiz-verdict';
+  document.getElementById('quiz-verdict').textContent = '';
   document.getElementById('quiz-explanation').className = 'quiz-explanation';
   document.getElementById('quiz-explanation').textContent = '';
   document.getElementById('quiz-next-btn').style.display = 'none';
@@ -1539,14 +1546,18 @@ function selectAnswer(idx) {
   if (quizAnswered) return;
   quizAnswered = true;
   const q = quizCards[currentQuestion];
+  const isCorrect = idx === q.ans;
   const opts = document.querySelectorAll('.quiz-option');
   opts.forEach((el, i) => {
     el.classList.add('disabled');
     if (i === q.ans) el.classList.add('correct');
-    else if (i === idx && idx !== q.ans) el.classList.add('wrong');
+    else if (i === idx && !isCorrect) el.classList.add('wrong');
   });
-  if (idx === q.ans) quizScore++;
+  if (isCorrect) quizScore++;
   document.getElementById('quiz-score').textContent = '正解数：' + quizScore + ' / ' + (currentQuestion + 1);
+  const verdict = document.getElementById('quiz-verdict');
+  verdict.className = 'quiz-verdict show ' + (isCorrect ? 'correct' : 'wrong');
+  verdict.textContent = isCorrect ? '✅ 正解！' : '❌ 不正解';
   const exp = document.getElementById('quiz-explanation');
   exp.textContent = '【解説】' + q.exp;
   exp.className = 'quiz-explanation show';
